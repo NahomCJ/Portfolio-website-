@@ -1,0 +1,67 @@
+.tl-section {
+  background: #000;
+  padding: 28px 0;
+}
+
+.tl-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.tl-container::before,
+.tl-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(32px, 8%, 120px);
+  pointer-events: none;
+  z-index: 10;
+}
+.tl-container::before {
+  left: 0;
+  background: linear-gradient(to right, #000 0%, transparent 100%);
+}
+.tl-container::after {
+  right: 0;
+  background: linear-gradient(to left, #000 0%, transparent 100%);
+}
+
+.tl-track {
+  display: flex;
+  width: max-content;
+  animation: tl-scroll 30s linear infinite;
+  user-select: none;
+}
+.tl-track:hover { animation-play-state: paused; }
+
+@keyframes tl-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-100% / 3)); }
+}
+
+.tl-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-right: 20px;
+  flex-shrink: 0;
+  transition: transform 0.2s, opacity 0.2s;
+  opacity: 0.6;
+}
+.tl-pill:hover {
+  transform: translateY(-3px);
+  opacity: 1;
+}
+.tl-pill i {
+  font-size: 34px;
+  line-height: 1;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-track { animation: none; }
+}

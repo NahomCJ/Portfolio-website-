@@ -1,0 +1,70 @@
+body:has(.proj-header) { background: #000; }
+
+.proj-header {
+  padding: 72px 0 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #000;
+}
+
+.proj-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.45);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 24px;
+  transition: color 0.15s;
+}
+.proj-back:hover { color: #fff; }
+
+.proj-heading {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin: 8px 0 12px;
+  line-height: 1.08;
+}
+
+.proj-sub {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+.proj-main {
+  padding: 56px 0 80px;
+  background: #000;
+}
+
+.proj-footer {
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 24px 0;
+}
+
+.proj-footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.proj-footer p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* sec-label override for dark page */
+.proj-header .sec-label { color: #60a5fa; }
+
+@media (max-width: 680px) {
+  .proj-header { padding: 48px 0 28px; }
+  .proj-main { padding: 36px 0 60px; }
+  .proj-footer-inner { flex-direction: column; gap: 4px; text-align: center; }
+}

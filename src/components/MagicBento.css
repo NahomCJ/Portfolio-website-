@@ -1,0 +1,199 @@
+.mb-section { position: relative; user-select: none; }
+
+.mb-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .mb-grid { grid-template-columns: repeat(2, 1fr); }
+  .mb-card--featured { grid-column: span 2; }
+}
+
+@media (min-width: 1024px) {
+  .mb-grid { grid-template-columns: repeat(3, 1fr); }
+  .mb-card--featured { grid-column: 1 / span 2; grid-row: 1 / span 2; }
+  .mb-card--cta { grid-column: 1 / -1; }
+}
+
+.mb-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 22px;
+  min-height: 220px;
+  cursor: default;
+  transform-style: preserve-3d;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 480px;
+  --glow-color: 59, 130, 246;
+}
+
+.mb-card--featured { min-height: 280px; }
+
+.mb-card--cta {
+  flex-direction: row;
+  align-items: center;
+  min-height: auto;
+  padding: 22px 28px;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.mb-card:hover {
+  box-shadow: 0 4px 32px rgba(59, 130, 246, 0.15);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Border glow — uses --glow-color CSS var so it follows the prop */
+.mb-card--glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(var(--glow-color), calc(var(--glow-intensity) * 0.65)) 0%,
+    rgba(var(--glow-color), calc(var(--glow-intensity) * 0.25)) 45%,
+    transparent 68%
+  );
+  border-radius: inherit;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Particle */
+.mb-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Card internals */
+.mb-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.mb-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3px 10px;
+  border-radius: 100px;
+  line-height: 1.6;
+}
+
+.mb-label--live { color: #4ade80; background: rgba(74, 222, 128, 0.1); border-color: rgba(74, 222, 128, 0.25); }
+
+.mb-gh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.55);
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+  position: relative;
+  z-index: 2;
+  text-decoration: none;
+  cursor: pointer;
+}
+.mb-gh:hover { background: #fff; color: #0f172a; border-color: #fff; }
+
+.mb-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+.mb-title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.mb-card--featured .mb-title { font-size: clamp(26px, 3.5vw, 38px); }
+
+.mb-desc {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.72;
+  margin: 0;
+}
+
+.mb-card--featured .mb-desc { font-size: 15px; }
+
+.mb-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.mb-tags span {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.mb-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #60a5fa;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.mb-cta-link:hover { color: #93c5fd; }
+
+@media (max-width: 640px) {
+  .mb-card--cta { flex-direction: column; align-items: flex-start; min-height: 160px; }
+}
