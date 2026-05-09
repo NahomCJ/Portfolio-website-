@@ -61,20 +61,7 @@ const EXPERIENCE = [
       'Delivered dashboards and visual reports in Matplotlib and Seaborn for clinical decision support.',
     ],
   },
-  {
-    period: 'Sep 2024 – Feb 2025',
-    location: 'Warsaw, Poland',
-    role: 'Technical Support',
-    company: 'Aledrive',
-    type: 'On-site',
-    bullets: [
-      'Resolved complex software and hardware issues for a fleet of 50+ crossover vehicles, maintaining 99% uptime for the Aledrive driver application.',
-      'Conducted technical onboarding for new drivers — GPS tracking, in-app messaging, and automated payment system setup.',
-      'Reduced harsh driving events (braking/idling) by ~15% through proactive fleet monitoring and alerts.',
-      'Provided multilingual support in Amharic & English, maintaining a 95% driver satisfaction rating.',
-      'Liaised with developers to report app bugs and suggest UI/UX improvements — 20% reduction in recurring support tickets.',
-    ],
-  },
+
   {
     period: 'Aug – Oct 2024',
     location: 'Brooklyn, NYC',
@@ -200,12 +187,12 @@ const EDUCATION = [
 
 const CERTS = [
   { name: 'AWS Cloud Solution Architect',        from: 'Amazon Web Services · Ongoing', url: '#' },
-  { name: 'Cloud Computing',                     from: 'Coursera',                      url: '#' },
-  { name: 'Data Science',                        from: 'OESON',                         url: '#' },
-  { name: 'AI Engineering',                      from: 'GAOTek Inc.',                   url: '#' },
-  { name: 'Digital Marketing',                   from: 'GAOTek Inc.',                   url: '#' },
-  { name: 'C++ Programming',                     from: 'Virtual CE',                    url: '#' },
-  { name: 'Psychology: Discovering Personality', from: 'Peterson Academy',              url: '#' },
+  { name: 'Cloud Computing',                     from: 'Coursera',                      url: 'https://drive.google.com/file/d/1DuWQYN_jQm9_zdUrp_En-QQDf3_KepDv/view?usp=drivesdk' },
+  { name: 'Data Science',                        from: 'OESON',                         url: 'https://drive.google.com/file/d/1GR1piHmJOVWFwQ0xvZ6fDnNV3jJLfvD-/view?usp=drivesdk' },
+  { name: 'AI Engineering',                      from: 'GAOTek Inc.',                   url: 'https://drive.google.com/file/d/1JL2NJNz6VeBcewUySCOZ61FeU22-OXyS/view?usp=drivesdk' },
+  { name: 'Digital Marketing',                   from: 'GAOTek Inc.',                   url: 'https://drive.google.com/file/d/15cs1SZnHGahFYqKWbGmgBZAF0t2h2w9D/view?usp=drivesdk' },
+  { name: 'C++ Programming',                     from: 'Virtual CE',                    url: 'https://drive.google.com/file/d/1KcAOlLrUOsdVYuO60ChGEXXLh-29E2NS/view?usp=drivesdk' },
+  { name: 'Psychology: Discovering Personality', from: 'Peterson Academy',              url: 'https://drive.google.com/file/d/1_h3wU81n5UCfKuOBMlM-_FpJYLfGKjO4/view?usp=drivesdk' },
 ];
 
 const HIGHLIGHTS = [
@@ -274,6 +261,12 @@ const IconGithub = () => (
   </svg>
 );
 
+const IconInstagram = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.834a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+  </svg>
+);
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Home() {
@@ -313,7 +306,7 @@ export default function Home() {
     {
       label: 'Resume',
       icon: <IconDoc />,
-      onClick: () => window.open('/Founder CV.pdf', '_blank'),
+      onClick: () => navigate('/resume'),
     },
     {
       label: 'Blogs',
@@ -335,7 +328,7 @@ export default function Home() {
         <div className="container">
           <div className="hero-inner">
             <div className="hero-text">
-              <h1 className="hero-name">Nahom<br />Teklay</h1>
+              <h1 className="hero-name">Nahom Teklay</h1>
               <p className="hero-role">Data Scientist · AI Engineer · Software Developer</p>
               <p className="hero-bio">
                 Experienced in <strong>ML pipelines</strong>, mobile development, and cloud deployment —
@@ -345,11 +338,11 @@ export default function Home() {
                 <a href="https://linkedin.com/in/nahom-teklay" target="_blank" rel="noopener" className="hero-social-btn" aria-label="LinkedIn">
                   <IconLinkedIn />
                 </a>
-                <a href="#contact" className="btn btn-dark btn-lg" onClick={scrollTo('contact')}>
-                  Let&apos;s get in touch
-                </a>
                 <a href="https://github.com/nahomteklay" target="_blank" rel="noopener" className="hero-social-btn" aria-label="GitHub">
                   <IconGithub />
+                </a>
+                <a href="https://www.instagram.com/_nahom.teklay?igsh=ZWNiOGVycmR2dW1o&utm_source=qr" target="_blank" rel="noopener" className="hero-social-btn" aria-label="Instagram">
+                  <IconInstagram />
                 </a>
               </div>
             </div>

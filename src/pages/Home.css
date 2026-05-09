@@ -1,11 +1,17 @@
 /* ─── Dark sections ─── */
 #hero,
 #about,
-#contact {
+#contact,
+#experience,
+#skills,
+#education,
+#certificates {
   position: relative;
   overflow: hidden;
-  background: #000;
 }
+#hero { background: #000; }
+#about { background: #000; }
+#contact { background: #000; }
 #hero .container,
 #about .container,
 #contact .container {
@@ -59,7 +65,8 @@
 }
 
 .hero-name {
-  font-size: clamp(54px, 7.5vw, 86px);
+  font-size: clamp(36px, 6vw, 68px);
+  white-space: nowrap;
   font-weight: 800;
   letter-spacing: -0.045em;
   line-height: 1.02;
@@ -68,7 +75,7 @@
 }
 
 .hero-role {
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.55);
   margin-bottom: 22px;
@@ -126,15 +133,17 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1.5px solid rgba(255, 255, 255, 0.18);
-  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.85);
   flex-shrink: 0;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .hero-social-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
   color: #fff;
 }
 
@@ -204,6 +213,7 @@
 }
 
 /* ─── Experience ─── */
+#experience { background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); }
 .exp-list { border-top: 1px solid var(--border); }
 
 .exp-row {
@@ -316,9 +326,10 @@ a.exp-co:hover { text-decoration: underline; text-underline-offset: 2px; }
 
 .edu-card {
   padding: 24px;
-  border: 1px solid var(--border);
+  border: 1px solid #cbd5e1;
   border-radius: 14px;
-  background: #fff;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6);
   transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
 }
 .edu-card:hover {
@@ -380,9 +391,10 @@ a.exp-co:hover { text-decoration: underline; text-underline-offset: 2px; }
   flex-direction: column;
   gap: 3px;
   padding: 16px 20px;
-  border: 1px solid var(--border);
+  border: 1px solid #cbd5e1;
   border-radius: 11px;
-  background: #fff;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6);
   transition: border-color 0.15s;
 }
 .cert-item:hover { border-color: #cbd5e1; }
@@ -464,6 +476,20 @@ footer .container { position: relative; z-index: 1; }
   align-items: center;
 }
 footer p { font-size: 13px; color: rgba(255, 255, 255, 0.25); }
+
+/* ─── Blur Divider ─── */
+.blur-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.2));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+  z-index: 10;
+}
 
 /* ─── Responsive ─── */
 @media (max-width: 960px) {

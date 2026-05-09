@@ -1,0 +1,154 @@
+.tracy-trigger {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  background: #111;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.wobble-animation {
+  animation: wobble 3s ease-in-out infinite;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-6px) rotate(-4deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(-4px) rotate(3deg); }
+}
+
+.tracy-window {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 340px;
+  height: 480px;
+  max-height: calc(100vh - 48px);
+  max-width: calc(100vw - 48px);
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  z-index: 10001;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.tracy-header {
+  background: #0f172a;
+  color: #fff;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tracy-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.tracy-status {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.tracy-close {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+.tracy-close:hover { color: #fff; }
+
+.tracy-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f8fafc;
+}
+
+.tracy-msg-row {
+  display: flex;
+}
+.tracy-msg-row.user { justify-content: flex-end; }
+.tracy-msg-row.assistant { justify-content: flex-start; }
+
+.tracy-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #0f172a;
+}
+.tracy-msg-row.user .tracy-bubble {
+  background: #3b82f6;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.tracy-msg-row.assistant .tracy-bubble {
+  background: #e2e8f0;
+  border-bottom-left-radius: 4px;
+}
+
+.tracy-input-area {
+  padding: 12px;
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 8px;
+}
+.tracy-input-area input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 100px;
+  outline: none;
+  font-size: 14px;
+}
+.tracy-input-area input:focus { border-color: #3b82f6; }
+.tracy-input-area button {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 0 16px;
+  border-radius: 100px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.tracy-input-area button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.tracy-loading { display: flex; gap: 4px; align-items: center; height: 20px; }
+.tracy-loading .dot {
+  width: 6px; height: 6px; background: #94a3b8; border-radius: 50%;
+  animation: jump 1.4s infinite ease-in-out both;
+}
+.tracy-loading .dot:nth-child(1) { animation-delay: -0.32s; }
+.tracy-loading .dot:nth-child(2) { animation-delay: -0.16s; }
+@keyframes jump {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}

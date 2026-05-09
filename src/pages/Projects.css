@@ -1,9 +1,9 @@
-body:has(.proj-header) { background: #000; }
+body:has(.proj-header) { background: #fff; }
 
 .proj-header {
   padding: 72px 0 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: #000;
+  border-bottom: 1px solid #e2e8f0;
+  background: #fff;
 }
 
 .proj-back {
@@ -12,7 +12,7 @@ body:has(.proj-header) { background: #000; }
   gap: 7px;
   font-size: 13px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.45);
+  color: #64748b;
   background: none;
   border: none;
   cursor: pointer;
@@ -20,32 +20,32 @@ body:has(.proj-header) { background: #000; }
   margin-bottom: 24px;
   transition: color 0.15s;
 }
-.proj-back:hover { color: #fff; }
+.proj-back:hover { color: #0f172a; }
 
 .proj-heading {
   font-size: clamp(32px, 5vw, 52px);
   font-weight: 800;
   letter-spacing: -0.04em;
-  color: #fff;
+  color: #0f172a;
   margin: 8px 0 12px;
   line-height: 1.08;
 }
 
 .proj-sub {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.45);
+  color: #64748b;
   line-height: 1.7;
   max-width: 560px;
 }
 
 .proj-main {
   padding: 56px 0 80px;
-  background: #000;
+  background: #f8fafc;
 }
 
 .proj-footer {
-  background: #000;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  background: #fff;
+  border-top: 1px solid #e2e8f0;
   padding: 24px 0;
 }
 
@@ -57,7 +57,7 @@ body:has(.proj-header) { background: #000; }
 
 .proj-footer p {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.25);
+  color: #64748b;
 }
 
 /* sec-label override for dark page */
