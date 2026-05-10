@@ -2,11 +2,11 @@ import { useState, useRef, useEffect } from 'react';
 import Anthropic from '@anthropic-ai/sdk';
 import './TracyChatbot.css';
 
+const WELCOME_MESSAGE = { role: 'assistant', content: "Hi! I'm Tracy, Nahom's AI assistant. He's an exceptional talent! How can I help you learn more about his background and skills today?" };
+
 export default function TracyChatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Hi! I am Tracy, Nahom\'s AI assistant. He is an exceptional talent! How can I help you learn more about his background and skills today?' }
-  ]);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -38,7 +38,7 @@ export default function TracyChatbot() {
 
       const anthropic = new Anthropic({
         apiKey: apiKey,
-        dangerouslyAllowBrowser: true // Needs to be true for frontend-only integration
+        dangerouslyAllowBrowser: true
       });
 
       const response = await anthropic.messages.create({
@@ -61,6 +61,9 @@ export default function TracyChatbot() {
     <>
       {!isOpen && (
         <div className="tracy-trigger wobble-animation" onClick={() => setIsOpen(true)} title="Chat with Tracy">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
         </div>
       )}
 
@@ -75,7 +78,7 @@ export default function TracyChatbot() {
           </div>
 
           <div className="tracy-messages">
-            {messages.map((m, i) => (
+            {[WELCOME_MESSAGE, ...messages].map((m, i) => (
               <div key={i} className={`tracy-msg-row ${m.role}`}>
                 <div className="tracy-bubble">
                   {m.content}
