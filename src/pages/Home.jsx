@@ -152,18 +152,6 @@ const SKILLS = [
 
 const EDUCATION = [
   {
-    year: '2025 – 2026',
-    degree: 'MSc Finance & Business',
-    school: 'Sapienza University of Rome',
-    location: 'Rome, Italy',
-  },
-  {
-    year: '2025 – 2026',
-    degree: 'MSc International Business Creation',
-    school: 'Genoa Entrepreneurship School',
-    location: 'Genoa, Italy',
-  },
-  {
     year: '2024 – 2027',
     degree: 'BSc Computer Science — Artificial Intelligence',
     school: 'Vistula University',
@@ -379,8 +367,7 @@ export default function Home() {
                 records at <strong>OESON</strong>, fine-tuning LLMs and deploying fraud detection models on AWS EC2
                 at <strong>GAOTek Inc.</strong>, and contributing to Flutter and Android mobile apps at{' '}
                 <strong>Ozone Technologies</strong>. Currently pursuing a BSc in Computer Science (AI) at Vistula
-                University alongside dual Master&apos;s programs in Finance &amp; Business and International Business
-                Creation.
+                University.
               </p>
             </div>
             <div className="about-highlights">
