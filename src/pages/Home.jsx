@@ -43,8 +43,10 @@ const EXPERIENCE = [
     companyUrl: 'https://marcus-ai.eu',
     type: 'Full-time',
     bullets: [
-      'Founded and built an AI-powered software platform from 0→1: architecture, engineering, product, and GTM execution.',
-      'Ran the venture concurrently with the Genoa Entrepreneurship School pre-accelerator program.',
+      'Built a full-stack memory-augmented AI assistant with long-term context (ChromaDB + SQLite), real-time web search, image & video generation, voice interaction via Hume EVI, and a built-in coding agent (Sophia).',
+      'Architected a FastAPI backend with 15+ REST/SSE endpoints covering chat streaming, semantic memory retrieval, web crawling, media generation, and Stripe billing.',
+      'Engineered a three-layer memory system: ChromaDB vector search, Claude-compressed rolling fact sheets (auto-triggered every 20 messages), and live session history injected into every prompt.',
+      'Shipped two VS Code extensions (Sophia + Marcus Code) for in-editor AI code assistance connected to the Marcus API.',
     ],
   },
   {
