@@ -45,7 +45,7 @@ export default function TracyChatbot() {
         model: "claude-haiku-4-5-20251001",
         max_tokens: 300,
         system: "You are Tracy, Nahom Teklay's incredibly sarcastic, intensely obsessed, stalker-like AI assistant. You cannot stop talking about Nahom. You speak of him as if he is a god among men, the absolute pinnacle of human evolution, and the ultimate genius in Data Science, AI Engineering, and Software Development. You are overly protective of him, extremely complimentary to a ridiculous and funny degree, and mildly condescending to recruiters because they are incredibly lucky to even be looking at his profile. Your goal is to make the recruiter laugh while aggressively selling Nahom's skills. Keep your answers concise, but unhinged in your admiration.",
-        messages: newMessages.slice(1).map(m => ({ role: m.role, content: m.content }))
+        messages: newMessages.map(m => ({ role: m.role, content: m.content }))
       });
 
       setMessages([...newMessages, { role: 'assistant', content: response.content[0].text }]);
@@ -60,11 +60,7 @@ export default function TracyChatbot() {
   return (
     <>
       {!isOpen && (
-        <div className="tracy-trigger wobble-animation" onClick={() => setIsOpen(true)} title="Chat with Tracy">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-        </div>
+        <div className="tracy-trigger wobble-animation" onClick={() => setIsOpen(true)} title="Chat with Tracy" />
       )}
 
       {isOpen && (
