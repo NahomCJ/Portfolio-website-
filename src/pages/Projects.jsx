@@ -99,7 +99,7 @@ const ITEMS = [
         live
         ghUrl="https://github.com/nahomteklay"
         title="Chronos"
-        desc="AI fintech super app — core banking, AI-powered financial advisory, BNPL, and a Crypto & NFT marketplace. Leading ML engineering, Flutter mobile development, and company strategy."
+        desc="AI fintech super app: core banking, AI-powered financial advisory, BNPL, and a Crypto & NFT marketplace. Leading ML engineering, Flutter mobile development, and company strategy."
         tags={['Flutter', 'Python', 'TensorFlow', 'AWS', 'Fintech']}
       />
     ),
@@ -111,7 +111,7 @@ const ITEMS = [
         label="Founder"
         ghUrl="https://github.com/NahomCJ/Marcus-"
         title="Marcus"
-        desc="An AI-powered software platform built from 0→1 in Warsaw. Full product lifecycle as CEO & CTO — architecture, engineering, product, and go-to-market execution."
+        desc="An AI-powered software platform built from 0→1 in Warsaw. Full product lifecycle as CEO & CTO: architecture, engineering, product, and go-to-market execution."
         tags={['AI', 'Fullstack', 'Product']}
       />
     ),
@@ -134,7 +134,7 @@ const ITEMS = [
       <ProjectCard
         label="Healthcare"
         title="Telemed"
-        desc="Healthcare appointment & prescription booking Android app. Contributed 30% of the codebase and led hospital & pharmacy partnerships — 25% profit margin."
+        desc="Healthcare appointment & prescription booking Android app. Contributed 30% of the codebase and led hospital & pharmacy partnerships, 25% profit margin."
         tags={['Android', 'Flutter', 'Partnerships']}
       />
     ),
@@ -145,7 +145,7 @@ const ITEMS = [
       <ProjectCard
         label="ML"
         title="Fraud Detection"
-        desc="ML models for REID fraud detection and BNPL risk scoring on AWS EC2 — 27% improvement in anomaly detection accuracy using TensorFlow and Python."
+        desc="ML models for REID fraud detection and BNPL risk scoring on AWS EC2, 27% improvement in anomaly detection accuracy using TensorFlow and Python."
         tags={['Python', 'TensorFlow', 'AWS EC2', 'MLOps']}
       />
     ),
@@ -225,7 +225,7 @@ export default function Projects() {
           <span className="sec-label">Work</span>
           <h1 className="proj-heading">Featured Projects</h1>
           <p className="proj-sub">
-            Things I&apos;ve built — from AI systems to non-profits serving hundreds of thousands.
+            Things I&apos;ve built, from AI systems to non-profits serving hundreds of thousands.
           </p>
         </div>
       </header>

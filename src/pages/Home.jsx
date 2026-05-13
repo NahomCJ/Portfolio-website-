@@ -18,7 +18,7 @@ const EXPERIENCE = [
     type: 'Full-time',
     featured: true,
     bullets: [
-      'Building an AI Fintech Super App — core banking, AI-Financier, BNPL, and Crypto & NFT marketplace with a live operation system.',
+      'Building an AI Fintech Super App: core banking, AI-Financier, BNPL, and Crypto & NFT marketplace with a live operation system.',
       'Personally driving AI/ML model training & fine-tuning, 30% of the Flutter mobile app, and business & marketing strategy.',
       'Leading a team of 7 engineers and designers.',
     ],
@@ -43,7 +43,7 @@ const EXPERIENCE = [
     companyUrl: 'https://github.com/NahomCJ/Marcus-',
     type: 'Full-time',
     bullets: [
-      'Founded and built an AI-powered software platform from 0→1 — architecture, engineering, product, and GTM execution.',
+      'Founded and built an AI-powered software platform from 0→1: architecture, engineering, product, and GTM execution.',
       'Ran the venture concurrently with the Genoa Entrepreneurship School pre-accelerator program.',
     ],
   },
@@ -55,7 +55,7 @@ const EXPERIENCE = [
     type: 'Internship',
     bullets: [
       'Analyzed 150,000+ anonymized patient records using Python and SQL to identify migraine and chronic pain patterns.',
-      'Built and deployed ML classification models with MLOps pipelines on Google Colab — improved symptom prediction accuracy by 22%.',
+      'Built and deployed ML classification models with MLOps pipelines on Google Colab, improved symptom prediction accuracy by 22%.',
       'Engineered data cleaning workflows to handle missing values and normalize time-series records aligned with CMS Modern 2025 QSM performance tracking.',
       'Partnered with healthcare analysts to define KPIs tied to LTSS workflows and RNTS-based alerting, contributing to enhanced intervention timelines.',
       'Delivered dashboards and visual reports in Matplotlib and Seaborn for clinical decision support.',
@@ -71,7 +71,7 @@ const EXPERIENCE = [
     type: 'Internship',
     bullets: [
       'Developed and fine-tuned LLM models using Python, TensorFlow, and Jupyter for chatbot integration in drone platform diagnostics.',
-      'Built and deployed ML models for REID fraud detection and BNPL risk scoring on AWS EC2 — 27% improvement in anomaly detection accuracy.',
+      'Built and deployed ML models for REID fraud detection and BNPL risk scoring on AWS EC2, 27% improvement in anomaly detection accuracy.',
       'Collaborated with cross-functional teams on LTSS data workflows and real-time RNTS integration for faster alerts.',
       'Contributed to full-stack automation using Git Copilot, increasing lead engagement by 19%.',
     ],
@@ -83,7 +83,7 @@ const EXPERIENCE = [
     company: 'Ozone Technologies',
     type: 'Internship',
     bullets: [
-      'Contributed to 30% of the Telemed mobile app — a healthcare consultation, appointment booking, and prescription platform.',
+      'Contributed to 30% of the Telemed mobile app, a healthcare consultation, appointment booking, and prescription platform.',
       'Integrated RESTful APIs for dynamic product updates and real-time user interactions, improving loading performance by 40%.',
       'Led business negotiations with 3 hospitals and 2 pharmacy partners, establishing a 25% profit margin.',
     ],
@@ -106,7 +106,7 @@ const EXPERIENCE = [
     company: 'Janderebaw',
     type: 'Co-founder',
     bullets: [
-      'Co-founded a non-profit now serving 300,000+ people — led website and mobile app development as a core engineer.',
+      'Co-founded a non-profit now serving 300,000+ people, led website and mobile app development as a core engineer.',
       'Personally contributed to 40% of the website codebase and managed the cloud database infrastructure.',
       'Raised $50,000+ through crowdfunding campaigns.',
     ],
@@ -147,13 +147,13 @@ const SKILLS = [
   { cat: 'Data Science',     items: ['Pandas', 'NumPy', 'SciPy', 'Statsmodels', 'Matplotlib', 'Seaborn', 'Plotly', 'Power BI'] },
   { cat: 'Cloud & Infra',    items: ['AWS', 'Docker', 'PostgreSQL', 'RESTful APIs'] },
   { cat: 'Frontend',         items: ['React', 'HTML', 'CSS', 'JavaScript'] },
-  { cat: 'Spoken Languages', items: ['English — C2', 'Amharic — C2', 'Italian — A2', 'Polish — A1'] },
+  { cat: 'Spoken Languages', items: ['English: C2', 'Amharic: C2', 'Italian: A2', 'Polish: A1'] },
 ];
 
 const EDUCATION = [
   {
     year: '2024 – 2027',
-    degree: 'BSc Computer Science — Artificial Intelligence',
+    degree: 'BSc in Computer Science & Artificial Intelligence - Minor in Cyber Security',
     school: 'Vistula University',
     location: 'Warsaw, Poland',
     gpa: 'GPA 3.92 / 4.0',
@@ -319,7 +319,7 @@ export default function Home() {
               <h1 className="hero-name">Nahom Teklay</h1>
               <p className="hero-role">Data Scientist · AI Engineer · Software Developer</p>
               <p className="hero-bio">
-                Experienced in <strong>ML pipelines</strong>, mobile development, and cloud deployment —
+                Experienced in <strong>ML pipelines</strong>, mobile development, and cloud deployment,
                 building production systems across healthcare, fintech, and enterprise software.
               </p>
               <div className="hero-actions">
@@ -356,7 +356,7 @@ export default function Home() {
             <div className="about-body">
               <p className="about-lead">I&apos;m a data scientist and AI engineer with hands-on experience building ML systems, mobile applications, and full-stack platforms.</p>
               <p>
-                I work across the full ML lifecycle — from data engineering and feature extraction to model training,
+                I work across the full ML lifecycle, from data engineering and feature extraction to model training,
                 MLOps pipelines, and cloud deployment on AWS. My primary stack is <strong>Python</strong> and{' '}
                 <strong>Dart (Flutter)</strong>, with experience across TensorFlow, Scikit-learn, Keras, and RESTful
                 API integration. I&apos;ve shipped production models and contributed to multi-platform mobile apps
@@ -366,7 +366,7 @@ export default function Home() {
                 Recent technical work includes building ML classification pipelines on 150,000+ anonymized patient
                 records at <strong>OESON</strong>, fine-tuning LLMs and deploying fraud detection models on AWS EC2
                 at <strong>GAOTek Inc.</strong>, and contributing to Flutter and Android mobile apps at{' '}
-                <strong>Ozone Technologies</strong>. Currently pursuing a BSc in Computer Science (AI) at Vistula
+                <strong>Ozone Technologies</strong>. Currently pursuing a BSc in Computer Science &amp; Artificial Intelligence (Minor in Cyber Security) at Vistula
                 University.
               </p>
             </div>
