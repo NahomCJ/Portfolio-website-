@@ -40,7 +40,7 @@ const EXPERIENCE = [
     location: 'Warsaw, Poland',
     role: 'CEO & CTO',
     company: 'Marcus',
-    companyUrl: 'https://github.com/NahomCJ/Marcus-',
+    companyUrl: 'https://marcus-ai.eu',
     type: 'Full-time',
     bullets: [
       'Founded and built an AI-powered software platform from 0→1: architecture, engineering, product, and GTM execution.',
