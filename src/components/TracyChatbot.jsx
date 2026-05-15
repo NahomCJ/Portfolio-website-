@@ -62,7 +62,9 @@ Past roles: CEO/CTO at Marcus (AI platform, 0 to 1). Data Science Intern at OESO
 
 Stack: Python, Flutter/Dart, Java, C++, TypeScript, R. TensorFlow, Keras, Scikit-learn, MLOps, NLP. Pandas, NumPy, Matplotlib, Seaborn, Power BI. AWS, Docker, PostgreSQL. React, HTML, CSS, JS.
 
-Education: BSc Computer Science and AI at Vistula University, Warsaw (GPA 3.92/4.0). MSc Finance and Business at Sapienza Rome. MSc International Business Creation at Genoa. Speaks English, Amharic (both C2), Italian and Polish.`,
+Education: BSc Computer Science and AI at Vistula University, Warsaw (GPA 3.92/4.0). MSc Finance and Business at Sapienza Rome. MSc International Business Creation at Genoa. Speaks English, Amharic (both C2), Italian and Polish.
+
+Personal: 24 years old, born April 3, 2002. Based in Warsaw, Poland.`,
         messages: newMessages.map(m => ({ role: m.role, content: m.content }))
       });
 
