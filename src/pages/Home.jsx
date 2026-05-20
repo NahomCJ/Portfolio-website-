@@ -315,7 +315,29 @@ export default function Home() {
     <>
       {/* ── HERO ── */}
       <section id="hero">
-        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#7186c4" speed={2} noiseIntensity={1.05} scale={0.2} rotation={136} />
+        <MagicRings
+          color="#7c7cde"
+          colorTwo="#6868e8"
+          ringCount={4}
+          speed={0.5}
+          attenuation={10}
+          lineThickness={1.5}
+          baseRadius={0.42}
+          radiusStep={0.1}
+          scaleRate={0.1}
+          opacity={1}
+          blur={0}
+          noiseAmount={0.01}
+          rotation={0}
+          ringGap={1.5}
+          fadeIn={0.7}
+          fadeOut={0.5}
+          followMouse={false}
+          mouseInfluence={0.2}
+          hoverScale={1.2}
+          parallax={0.05}
+          clickBurst={false}
+        />
         <div className="container">
           <div className="hero-inner">
             <div className="hero-text">
@@ -337,33 +359,8 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <div className="hero-rings-wrap">
-              <MagicRings
-                color="#7c7cde"
-                colorTwo="#6868e8"
-                ringCount={4}
-                speed={0.5}
-                attenuation={10}
-                lineThickness={1.5}
-                baseRadius={0.42}
-                radiusStep={0.1}
-                scaleRate={0.1}
-                opacity={1}
-                blur={0}
-                noiseAmount={0.01}
-                rotation={0}
-                ringGap={1.5}
-                fadeIn={0.7}
-                fadeOut={0.5}
-                followMouse={false}
-                mouseInfluence={0.2}
-                hoverScale={1.2}
-                parallax={0.05}
-                clickBurst={false}
-              />
-              <div className="hero-img-wrap">
-                <img src="/photo.jpg" alt="Nahom Teklay" />
-              </div>
+            <div className="hero-img-wrap">
+              <img src="/photo.jpg" alt="Nahom Teklay" />
             </div>
           </div>
         </div>
