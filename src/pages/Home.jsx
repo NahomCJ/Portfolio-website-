@@ -314,7 +314,7 @@ export default function Home() {
     <>
       {/* ── HERO ── */}
       <section id="hero">
-        <Beams />
+        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#7186c4" speed={2} noiseIntensity={1.05} scale={0.2} rotation={136} />
         <div className="container">
           <div className="hero-inner">
             <div className="hero-text">
@@ -487,7 +487,7 @@ export default function Home() {
 
       {/* ── CONTACT ── */}
       <section id="contact">
-        <Beams />
+        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#7186c4" speed={2} noiseIntensity={1.05} scale={0.2} rotation={181} />
         <div className="container">
           <div className="contact-wrap">
             <h2>Let&apos;s get in touch.</h2>

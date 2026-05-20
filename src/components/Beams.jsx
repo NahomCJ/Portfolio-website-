@@ -59,9 +59,11 @@ function extendMaterial(BaseMaterial, cfg) {
 }
 
 const CanvasWrapper = ({ children }) => (
-  <Canvas dpr={[1, 2]} frameloop="always" className="beams-canvas">
-    {children}
-  </Canvas>
+  <div className="beams-container">
+    <Canvas dpr={[1, 2]} frameloop="always" style={{ width: '100%', height: '100%' }}>
+      {children}
+    </Canvas>
+  </div>
 );
 
 const hexToNormalizedRGB = (hex) => {
