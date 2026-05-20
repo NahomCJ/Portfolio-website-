@@ -105,14 +105,16 @@ const ITEMS = [
     ),
   },
   {
+    featured: true,
     bg: DARK,
     content: (
       <ProjectCard
-        label="Founder"
+        label="Founder & CTO"
+        live
         ghUrl="https://github.com/NahomCJ/Marcus-"
         title="Marcus"
-        desc="An AI-powered software platform built from 0→1 in Warsaw. Full product lifecycle as CEO & CTO: architecture, engineering, product, and go-to-market execution."
-        tags={['AI', 'Fullstack', 'Product']}
+        desc="AI-powered software platform built 0→1 in Warsaw. Sole architect and engineer — designed the full system, built the backend with FastAPI, integrated vector search via ChromaDB, and shipped the product end-to-end. Led architecture, engineering, product, and go-to-market as CEO & CTO."
+        tags={['Python', 'FastAPI', 'ChromaDB', 'AI', 'React', 'Fullstack']}
       />
     ),
   },

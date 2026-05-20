@@ -29,26 +29,26 @@ export default function SplashScreen({ onComplete }) {
     <div className={`splash-screen ${isFading ? 'fade-out' : ''}`}>
       <div className="splash-rings-wrap">
         <MagicRings
-          color="#7c7cde"
-          colorTwo="#6868e8"
-          ringCount={4}
-          speed={0.5}
-          attenuation={10}
+          color="#fffefe"
+          colorTwo="#ffffff"
+          ringCount={3}
+          speed={0.9}
+          attenuation={7}
           lineThickness={1.5}
-          baseRadius={0.42}
-          radiusStep={0.1}
+          baseRadius={0.29}
+          radiusStep={0.13}
           scaleRate={0.1}
-          opacity={1}
+          opacity={0.55}
           blur={0}
-          noiseAmount={0.01}
+          noiseAmount={0}
           rotation={0}
-          ringGap={1.5}
-          fadeIn={0.7}
+          ringGap={1.2}
+          fadeIn={1}
           fadeOut={0.5}
           followMouse={false}
           mouseInfluence={0.2}
-          hoverScale={1.2}
-          parallax={0.05}
+          hoverScale={1.45}
+          parallax={0.04}
           clickBurst={false}
         />
       </div>
