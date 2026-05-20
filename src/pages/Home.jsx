@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Beams from '../components/Beams';
+import MagicRings from '../components/MagicRings';
 import TechLoop from '../components/TechLoop';
 import Dock from '../components/Dock';
 import './Home.css';
@@ -314,7 +315,7 @@ export default function Home() {
     <>
       {/* ── HERO ── */}
       <section id="hero">
-        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#7186c4" speed={2} noiseIntensity={1.05} scale={0.2} rotation={136} />
+        <MagicRings color="#7c7cde" colorTwo="#6868e8" ringCount={4} speed={0.5} attenuation={10} lineThickness={1.5} baseRadius={0.42} radiusStep={0.1} scaleRate={0.1} opacity={1} blur={0} noiseAmount={0.01} rotation={0} ringGap={1.5} fadeIn={0.7} fadeOut={0.5} followMouse={false} mouseInfluence={0.2} hoverScale={1.2} parallax={0.05} clickBurst={false} />
         <div className="container">
           <div className="hero-inner">
             <div className="hero-text">
@@ -348,7 +349,7 @@ export default function Home() {
 
       {/* ── ABOUT ── */}
       <section id="about">
-        <Beams />
+        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#7186c4" speed={2} noiseIntensity={1.05} scale={0.2} rotation={180} />
         <div className="container">
           <div className="sec-head">
             <span className="sec-label">About</span>
@@ -487,7 +488,7 @@ export default function Home() {
 
       {/* ── CONTACT ── */}
       <section id="contact">
-        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#7186c4" speed={2} noiseIntensity={1.05} scale={0.2} rotation={181} />
+        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#7186c4" speed={2} noiseIntensity={1.05} scale={0.2} rotation={180} />
         <div className="container">
           <div className="contact-wrap">
             <h2>Let&apos;s get in touch.</h2>
