@@ -110,8 +110,19 @@
   color: #fff;
 }
 
-.hero-img-wrap {
+.hero-rings-wrap {
+  position: relative;
   flex-shrink: 0;
+  width: 480px;
+  height: 580px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-img-wrap {
+  position: relative;
+  z-index: 1;
   width: 400px;
   height: 500px;
   border-radius: 20px;
@@ -496,13 +507,15 @@ footer p { font-size: 13px; color: rgba(255, 255, 255, 0.25); }
   .skills-wrap { grid-template-columns: repeat(2, 1fr); gap: 32px 40px; }
   .about-inner { grid-template-columns: 1fr; gap: 48px; }
   .about-highlights { grid-template-columns: repeat(4, 1fr); }
+  .hero-rings-wrap { width: 380px; height: 480px; }
   .hero-img-wrap { width: 320px; height: 400px; }
 }
 
 @media (max-width: 680px) {
   #hero { padding: 48px 0 64px; min-height: auto; }
   .hero-inner { flex-direction: column-reverse; gap: 36px; text-align: center; }
-  .hero-img-wrap { width: 260px; height: 330px; margin: 0 auto; border-color: rgba(255,255,255,0.12); }
+  .hero-rings-wrap { width: 300px; height: 390px; margin: 0 auto; }
+  .hero-img-wrap { width: 260px; height: 330px; border-color: rgba(255,255,255,0.12); }
   .hero-actions { justify-content: center; }
   .hero-bio, .hero-badge { margin-left: auto; margin-right: auto; }
 
