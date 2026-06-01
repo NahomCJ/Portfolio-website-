@@ -947,7 +947,7 @@ footer p {
 @media (max-width: 680px) {
   /* Hero */
   #hero { padding: 48px 0 64px; min-height: auto; }
-  .hero-inner { flex-direction: column-reverse; gap: 36px; text-align: center; }
+  .hero-inner { flex-direction: column; gap: 36px; text-align: center; }
   .hero-img-wrap { width: 260px; height: 260px; margin: 0 auto; border-color: rgba(255,255,255,0.12); }
   .hero-actions { justify-content: center; }
   .hero-bio { margin-left: auto; margin-right: auto; }

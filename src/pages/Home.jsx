@@ -316,6 +316,9 @@ export default function Home() {
         <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#7186c4" speed={2} noiseIntensity={1.05} scale={0.2} rotation={-30} />
         <div className="container">
           <div className="hero-inner">
+            <div className="hero-img-wrap">
+              <img src="/photo.jpg" alt="Nahom Teklay" />
+            </div>
             <div className="hero-text">
               <h1 className="hero-name">Nahom Teklay</h1>
               <p className="hero-role">Data Scientist · AI Engineer · Software Developer</p>
@@ -334,9 +337,6 @@ export default function Home() {
                   <IconInstagram />
                 </a>
               </div>
-            </div>
-            <div className="hero-img-wrap">
-              <img src="/photo.jpg" alt="Nahom Teklay" />
             </div>
           </div>
         </div>
