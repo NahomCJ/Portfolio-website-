@@ -113,8 +113,8 @@
 .hero-img-wrap {
   flex-shrink: 0;
   width: 400px;
-  height: 500px;
-  border-radius: 20px;
+  height: 400px;
+  border-radius: 50%;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 60px rgba(0, 0, 0, 0.5);
@@ -496,13 +496,13 @@ footer p { font-size: 13px; color: rgba(255, 255, 255, 0.25); }
   .skills-wrap { grid-template-columns: repeat(2, 1fr); gap: 32px 40px; }
   .about-inner { grid-template-columns: 1fr; gap: 48px; }
   .about-highlights { grid-template-columns: repeat(4, 1fr); }
-  .hero-img-wrap { width: 320px; height: 400px; }
+  .hero-img-wrap { width: 320px; height: 320px; }
 }
 
 @media (max-width: 680px) {
   #hero { padding: 48px 0 64px; min-height: auto; }
   .hero-inner { flex-direction: column-reverse; gap: 36px; text-align: center; }
-  .hero-img-wrap { width: 260px; height: 330px; margin: 0 auto; border-color: rgba(255,255,255,0.12); }
+  .hero-img-wrap { width: 260px; height: 260px; margin: 0 auto; border-color: rgba(255,255,255,0.12); }
   .hero-actions { justify-content: center; }
   .hero-bio, .hero-badge { margin-left: auto; margin-right: auto; }
 
