@@ -65,7 +65,7 @@
 }
 
 .hero-name {
-  font-size: clamp(36px, 6vw, 68px);
+  font-size: clamp(28px, 4.5vw, 52px);
   white-space: nowrap;
   font-weight: 800;
   letter-spacing: -0.045em;
@@ -75,7 +75,7 @@
 }
 
 .hero-role {
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.55);
   margin-bottom: 22px;
@@ -83,7 +83,7 @@
 }
 
 .hero-bio {
-  font-size: 16px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.45);
   line-height: 1.8;
   max-width: 460px;
@@ -112,8 +112,8 @@
 
 .hero-img-wrap {
   flex-shrink: 0;
-  width: 400px;
-  height: 400px;
+  width: 460px;
+  height: 460px;
   border-radius: 50%;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -123,7 +123,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
+  object-position: center 25%;
 }
 
 .hero-social-btn {
