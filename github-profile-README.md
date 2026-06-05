@@ -41,8 +41,6 @@ I build at the intersection of **AI and global finance**. Currently founding [Ch
 
 ## 🎓 Education
 
-- **MSc Finance & Business** — Sapienza University of Rome *(2025–2026)*
-- **MSc International Business Creation** — Genoa Entrepreneurship School *(2025–2026)*
 - **BSc Computer Science — AI** — Vistula University, Warsaw *(GPA 3.75 / 4.0)*
 
 ---
