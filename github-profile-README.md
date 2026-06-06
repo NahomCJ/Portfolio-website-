@@ -42,11 +42,13 @@ I build at the intersection of **AI and global finance**. Currently founding [Ch
 ## 🎓 Education
 
 - **BSc Computer Science — AI** — Vistula University, Warsaw *(GPA 3.75 / 4.0)*
+- **University of Messina** *(2021–2026, GPA 3.5 / 4.0)*
 
 ---
 
 ## 📫 Get in touch
 
+[![GitHub](https://img.shields.io/badge/GitHub-NahomCJ-181717?style=flat&logo=github)](https://github.com/NahomCJ)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-nahom--teklay-0A66C2?style=flat&logo=linkedin)](https://linkedin.com/in/nahom-teklay)
 [![Email](https://img.shields.io/badge/Email-nahomteklay17@gmail.com-EA4335?style=flat&logo=gmail)](mailto:nahomteklay17@gmail.com)
 [![Portfolio](https://img.shields.io/badge/Portfolio-nahomteklay.dev-111?style=flat&logo=vercel)](https://chronos-sf.com)
