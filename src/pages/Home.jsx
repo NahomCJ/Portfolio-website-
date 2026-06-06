@@ -160,10 +160,11 @@ const EDUCATION = [
     gpa: 'GPA 3.92 / 4.0',
   },
   {
-    year: '2021 –',
+    year: '2021 – 2026',
     degree: 'BSc Political & International Relations',
     school: 'University of Messina',
     location: 'Messina, Italy',
+    gpa: 'GPA 3.5 / 4.0',
   },
   {
     year: '2016 – 2020',
