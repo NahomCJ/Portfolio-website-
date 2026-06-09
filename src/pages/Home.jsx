@@ -158,7 +158,7 @@ const EDUCATION = [
     school: 'New York University',
     location: 'New York, United States',
     note: 'Incoming fall transfer',
-    logo: '/nyu-logo.svg',
+    logo: '/download.png',
   },
   {
     year: '2024 – 2027',
@@ -265,6 +265,14 @@ const IconInstagram = () => (
   </svg>
 );
 
+const IconGlobe = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </svg>
+);
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Home() {
@@ -325,8 +333,24 @@ export default function Home() {
         <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#6D28D9" speed={2} noiseIntensity={1.05} scale={0.2} rotation={-30} />
         <div className="container">
           <div className="hero-inner">
-            <div className="hero-img-wrap">
-              <img src="/photo.jpg" alt="Nahom Teklay" />
+            <div className="hero-photo-group">
+              <div className="hero-img-wrap">
+                <img src="/photo.jpg" alt="Nahom Teklay" />
+              </div>
+              <div className="hero-photo-socials">
+                <a href="https://nahom.eu" target="_blank" rel="noopener" className="hero-social-btn" aria-label="Website">
+                  <IconGlobe />
+                </a>
+                <a href="https://github.com/NahomCJ/Portfolio-website-" target="_blank" rel="noopener" className="hero-social-btn" aria-label="GitHub">
+                  <IconGithub />
+                </a>
+                <a href="https://linkedin.com/in/nahom-teklay" target="_blank" rel="noopener" className="hero-social-btn" aria-label="LinkedIn">
+                  <IconLinkedIn />
+                </a>
+                <a href="https://www.instagram.com/_nahom.teklay?igsh=ZWNiOGVycmR2dW1o&utm_source=qr" target="_blank" rel="noopener" className="hero-social-btn" aria-label="Instagram">
+                  <IconInstagram />
+                </a>
+              </div>
             </div>
             <div className="hero-text">
               <h1 className="hero-name">Nahom Teklay</h1>
@@ -364,20 +388,10 @@ export default function Home() {
           </div>
           <div className="about-inner">
             <div className="about-body">
-              <p className="about-lead">I&apos;m a data scientist and AI engineer with hands-on experience building ML systems, mobile applications, and full-stack platforms.</p>
+              <p className="about-lead">Hey, I&apos;m Nahom. I build AI products that feel alive.</p>
               <p>
-                I work across the full ML lifecycle, from data engineering and feature extraction to model training,
-                MLOps pipelines, and cloud deployment on AWS. My primary stack is <strong>Python</strong> and{' '}
-                <strong>Dart (Flutter)</strong>, with experience across TensorFlow, Scikit-learn, Keras, and RESTful
-                API integration. I&apos;ve shipped production models and contributed to multi-platform mobile apps
-                serving real users.
-              </p>
-              <p>
-                Recent technical work includes building ML classification pipelines on 150,000+ anonymized patient
-                records at <strong>OESON</strong>, fine-tuning LLMs and deploying fraud detection models on AWS EC2
-                at <strong>GAOTek Inc.</strong>, and contributing to Flutter and Android mobile apps at{' '}
-                <strong>Ozone Technologies</strong>. Currently pursuing a BSc in Computer Science &amp; Artificial Intelligence (Minor in Cyber Security) at Vistula
-                University.
+                Created <strong>Marcus</strong>, founded <strong>Chronos</strong> (AI fintech), and ship everything from Warsaw.
+                Always deep in a build, always glad you stopped by.
               </p>
             </div>
             <div className="about-highlights">
@@ -464,11 +478,9 @@ export default function Home() {
           <div className="edu-grid">
             {EDUCATION.map((edu, i) => (
               <div key={i} className="edu-card js-fade">
-                {edu.logo && (
-                  <img src={edu.logo} alt={edu.school + ' logo'} className="edu-logo" />
-                )}
-                <p className="edu-year">{edu.year}</p>
-                <h3>{edu.degree}</h3>
+                {edu.logo && <img src={edu.logo} alt={edu.school} className="edu-logo" />}
+                {edu.year && <p className="edu-year">{edu.year}</p>}
+                {edu.degree && <h3>{edu.degree}</h3>}
                 <p className="edu-school">{edu.school}</p>
                 <p className="edu-loc">{edu.location}</p>
                 {edu.note && <span className="edu-note">{edu.note}</span>}

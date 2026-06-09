@@ -150,6 +150,19 @@
   object-position: center 10%;
 }
 
+.hero-photo-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.hero-photo-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .hero-social-btn {
   display: inline-flex;
   align-items: center;
@@ -365,7 +378,7 @@ a.exp-co:hover { text-decoration: underline; text-underline-offset: 2px; }
   width: auto;
   height: 48px;
   object-fit: contain;
-  opacity: 0.85;
+  mix-blend-mode: multiply;
 }
 .edu-card:hover {
   border-color: #cbd5e1;
@@ -549,6 +562,8 @@ footer p { font-size: 13px; color: rgba(255, 255, 255, 0.25); }
   #hero { padding: 48px 0 64px; min-height: auto; }
   .hero-inner { flex-direction: column; gap: 36px; text-align: center; }
   .hero-img-wrap { width: 260px; height: 260px; margin: 0 auto; border-color: rgba(255,255,255,0.12); }
+  .hero-photo-group { margin: 0 auto; }
+  .hero-photo-socials { flex-direction: row; }
   .hero-actions { justify-content: center; }
   .hero-bio, .hero-badge { margin-left: auto; margin-right: auto; }
 
