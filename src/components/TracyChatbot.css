@@ -119,7 +119,7 @@
   color: #0f172a;
 }
 .tracy-msg-row.user .tracy-bubble {
-  background: #8B2FC9;
+  background: #6D28D9;
   color: #fff;
   border-bottom-right-radius: 4px;
 }
@@ -143,9 +143,9 @@
   outline: none;
   font-size: 14px;
 }
-.tracy-input-area input:focus { border-color: #8B2FC9; }
+.tracy-input-area input:focus { border-color: #6D28D9; }
 .tracy-input-area button {
-  background: #8B2FC9;
+  background: #6D28D9;
   color: #fff;
   border: none;
   padding: 0 16px;

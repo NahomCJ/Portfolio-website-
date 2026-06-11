@@ -36,7 +36,7 @@
   --glow-y: 50%;
   --glow-intensity: 0;
   --glow-radius: 480px;
-  --glow-color: 59, 130, 246;
+  --glow-color: 109, 40, 217;
 }
 
 .mb-card--featured { min-height: 280px; }
@@ -53,7 +53,7 @@
 }
 
 .mb-card:hover {
-  box-shadow: 0 4px 32px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 4px 32px rgba(109, 40, 217, 0.15);
   border-color: rgba(255, 255, 255, 0.14);
 }
 
@@ -186,13 +186,13 @@
   gap: 7px;
   font-size: 13px;
   font-weight: 600;
-  color: #C084FC;
+  color: #A78BFA;
   white-space: nowrap;
   flex-shrink: 0;
   text-decoration: none;
   transition: color 0.15s;
 }
-.mb-cta-link:hover { color: #93c5fd; }
+.mb-cta-link:hover { color: #A78BFA; }
 
 @media (max-width: 640px) {
   .mb-card--cta { flex-direction: column; align-items: flex-start; min-height: 160px; }

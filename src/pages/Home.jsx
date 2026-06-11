@@ -314,7 +314,7 @@ export default function Home() {
     <>
       {/* ── HERO ── */}
       <section id="hero">
-        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#9333EA" speed={2} noiseIntensity={1.05} scale={0.2} rotation={-30} />
+        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#6D28D9" speed={2} noiseIntensity={1.05} scale={0.2} rotation={-30} />
         <div className="container">
           <div className="hero-inner">
             <div className="hero-img-wrap">
@@ -348,7 +348,7 @@ export default function Home() {
 
       {/* ── ABOUT ── */}
       <section id="about">
-        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#9333EA" speed={2} noiseIntensity={1.05} scale={0.2} rotation={180} />
+        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#6D28D9" speed={2} noiseIntensity={1.05} scale={0.2} rotation={180} />
         <div className="container">
           <div className="sec-head">
             <span className="sec-label">About</span>
@@ -487,7 +487,7 @@ export default function Home() {
 
       {/* ── CONTACT ── */}
       <section id="contact">
-        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#9333EA" speed={2} noiseIntensity={1.05} scale={0.2} rotation={180} />
+        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#6D28D9" speed={2} noiseIntensity={1.05} scale={0.2} rotation={180} />
         <div className="container">
           <div className="contact-wrap">
             <h2>Let&apos;s get in touch.</h2>
