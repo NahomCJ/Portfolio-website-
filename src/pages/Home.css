@@ -480,11 +480,11 @@ a.cert-item {
   cursor: pointer;
 }
 a.cert-item:hover {
-  border-color: var(--accent, #2563eb);
-  background: var(--accent-bg, #eff6ff);
+  border-color: var(--accent, #7B1FA2);
+  background: var(--accent-bg, #f5f0ff);
 }
 a.cert-item:hover .cert-name {
-  color: var(--accent, #2563eb);
+  color: var(--accent, #7B1FA2);
 }
 
 /* ─── Footer ─── */

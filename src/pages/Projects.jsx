@@ -234,7 +234,7 @@ export default function Projects() {
 
       <main className="proj-main">
         <div className="container">
-          <MagicBento items={ITEMS} glowColor="59, 130, 246" />
+          <MagicBento items={ITEMS} glowColor="147, 51, 234" />
         </div>
       </main>
 

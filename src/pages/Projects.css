@@ -61,7 +61,7 @@ body:has(.proj-header) { background: #fff; }
 }
 
 /* sec-label override for dark page */
-.proj-header .sec-label { color: #60a5fa; }
+.proj-header .sec-label { color: #C084FC; }
 
 @media (max-width: 680px) {
   .proj-header { padding: 48px 0 28px; }
