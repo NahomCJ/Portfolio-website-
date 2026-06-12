@@ -153,6 +153,14 @@ const SKILLS = [
 
 const EDUCATION = [
   {
+    year: '2026 – Present',
+    degree: 'BSc – Information Science & Technology',
+    school: 'New York University',
+    location: 'New York, United States',
+    note: 'Incoming fall transfer',
+    logo: '/nyu-logo.svg',
+  },
+  {
     year: '2024 – 2027',
     degree: 'BSc in Computer Science & Artificial Intelligence - Minor in Cyber Security',
     school: 'Vistula University',
@@ -456,10 +464,14 @@ export default function Home() {
           <div className="edu-grid">
             {EDUCATION.map((edu, i) => (
               <div key={i} className="edu-card js-fade">
+                {edu.logo && (
+                  <img src={edu.logo} alt={edu.school + ' logo'} className="edu-logo" />
+                )}
                 <p className="edu-year">{edu.year}</p>
                 <h3>{edu.degree}</h3>
                 <p className="edu-school">{edu.school}</p>
                 <p className="edu-loc">{edu.location}</p>
+                {edu.note && <span className="edu-note">{edu.note}</span>}
                 {edu.gpa && <span className="edu-gpa">{edu.gpa}</span>}
               </div>
             ))}
