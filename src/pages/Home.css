@@ -360,12 +360,12 @@ a.exp-co:hover { text-decoration: underline; text-underline-offset: 2px; }
 
 .edu-logo {
   position: absolute;
-  top: 16px;
+  top: 14px;
   right: 16px;
-  width: 36px;
-  height: 36px;
+  width: auto;
+  height: 48px;
   object-fit: contain;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 .edu-card:hover {
   border-color: #cbd5e1;
