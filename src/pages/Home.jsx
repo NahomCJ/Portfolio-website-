@@ -105,11 +105,10 @@ const EXPERIENCE = [
     location: 'Addis Ababa',
     role: 'Founding Engineer',
     company: 'Janderebaw',
-    type: 'Co-founder',
+    type: 'Lead Engineering',
     bullets: [
       'Co-founded a non-profit now serving 300,000+ people, led website and mobile app development as a core engineer.',
       'Personally contributed to 40% of the website codebase and managed the cloud database infrastructure.',
-      'Raised $50,000+ through crowdfunding campaigns.',
     ],
   },
   {
