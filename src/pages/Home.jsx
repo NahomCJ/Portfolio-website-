@@ -343,6 +343,17 @@ export default function Home() {
                 Experienced in <strong>ML pipelines</strong>, mobile development, and cloud deployment,
                 building production systems across healthcare, fintech, and enterprise software.
               </p>
+              <div className="hero-actions">
+                <a href="https://github.com/NahomCJ" target="_blank" rel="noopener" className="hero-social-btn" aria-label="GitHub">
+                  <IconGithub />
+                </a>
+                <a href="https://linkedin.com/in/nahom-teklay" target="_blank" rel="noopener" className="hero-social-btn" aria-label="LinkedIn">
+                  <IconLinkedIn />
+                </a>
+                <a href="https://www.instagram.com/_nahom.teklay?igsh=ZWNiOGVycmR2dW1o&utm_source=qr" target="_blank" rel="noopener" className="hero-social-btn" aria-label="Instagram">
+                  <IconInstagram />
+                </a>
+              </div>
             </div>
           </div>
         </div>
