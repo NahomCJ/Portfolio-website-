@@ -347,7 +347,7 @@ export default function Home() {
                 <a href="https://github.com/NahomCJ" target="_blank" rel="noopener" className="hero-social-btn" aria-label="GitHub">
                   <IconGithub />
                 </a>
-                <a href="https://linkedin.com/in/nahom-teklay" target="_blank" rel="noopener" className="hero-social-btn" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/nahom-t-096393276?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener" className="hero-social-btn" aria-label="LinkedIn">
                   <IconLinkedIn />
                 </a>
                 <a href="https://www.instagram.com/_nahom.teklay?igsh=ZWNiOGVycmR2dW1o&utm_source=qr" target="_blank" rel="noopener" className="hero-social-btn" aria-label="Instagram">
@@ -508,7 +508,7 @@ export default function Home() {
             </a>
             <div className="contact-links">
               <a
-                href="https://linkedin.com/in/nahom-teklay"
+                href="https://www.linkedin.com/in/nahom-t-096393276?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
                 target="_blank"
                 rel="noopener"
                 className="contact-link-item"
