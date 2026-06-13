@@ -91,6 +91,28 @@
 }
 .hero-bio strong { color: #fff; font-weight: 600; }
 
+.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+.hero-social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.hero-social-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fff;
+}
 
 @keyframes heroSlideIn {
   from {
@@ -525,6 +547,7 @@ footer p { font-size: 13px; color: rgba(255, 255, 255, 0.25); }
   #hero { padding: 48px 0 64px; min-height: auto; }
   .hero-inner { flex-direction: column; gap: 36px; text-align: center; }
   .hero-img-wrap { width: 260px; height: 260px; margin: 0 auto; border-color: rgba(255,255,255,0.12); }
+  .hero-actions { justify-content: center; }
   .hero-bio, .hero-badge { margin-left: auto; margin-right: auto; }
 
   .about-highlights { grid-template-columns: repeat(2, 1fr); }
