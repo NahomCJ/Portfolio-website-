@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Anthropic from '@anthropic-ai/sdk';
 import './TracyChatbot.css';
+import Strands from './Strands';
 
 const WELCOME_MESSAGE = { role: 'assistant', content: "Hi! I'm Tracy, Nahom's AI assistant. He's an exceptional talent! How can I help you learn more about his background and skills today?" };
 
@@ -100,22 +101,26 @@ CONTACT: nahomteklay17@gmail.com | LinkedIn: linkedin.com/in/nahom-teklay | GitH
     <>
       {!isOpen && (
         <div className="tracy-trigger wobble-animation" onClick={() => setIsOpen(true)} title="Chat with Tracy">
-          <svg width="30" height="22" viewBox="0 0 30 22" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="siri-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%"   stopColor="#FF3B30"/>
-                <stop offset="25%"  stopColor="#FF9F0A"/>
-                <stop offset="50%"  stopColor="#30D158"/>
-                <stop offset="75%"  stopColor="#0A84FF"/>
-                <stop offset="100%" stopColor="#BF5AF2"/>
-              </linearGradient>
-            </defs>
-            <rect className="siri-bar" x="0"   y="7" width="4" height="8"  rx="2" fill="url(#siri-grad)"/>
-            <rect className="siri-bar" x="6.5" y="3" width="4" height="16" rx="2" fill="url(#siri-grad)"/>
-            <rect className="siri-bar" x="13"  y="0" width="4" height="22" rx="2" fill="url(#siri-grad)"/>
-            <rect className="siri-bar" x="19.5" y="3" width="4" height="16" rx="2" fill="url(#siri-grad)"/>
-            <rect className="siri-bar" x="26"  y="7" width="4" height="8"  rx="2" fill="url(#siri-grad)"/>
-          </svg>
+          <Strands
+            colors={["#040303","#5100dc","#06B6D4"]}
+            count={4}
+            speed={0.7}
+            amplitude={1}
+            waviness={1.6}
+            thickness={0.7}
+            glow={2.6}
+            taper={3}
+            spread={1}
+            intensity={0.6}
+            saturation={1.5}
+            opacity={1}
+            scale={1.5}
+            glass
+            refraction={0.3}
+            dispersion={0}
+            glassSize={1}
+            hueShift={0.32}
+          />
         </div>
       )}
 
