@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import Anthropic from '@anthropic-ai/sdk';
 import './TracyChatbot.css';
-import Strands from './Strands';
 
 const WELCOME_MESSAGE = { role: 'assistant', content: "Hi! I'm Tracy, Nahom's AI assistant. He's an exceptional talent! How can I help you learn more about his background and skills today?" };
 
@@ -100,27 +99,13 @@ CONTACT: nahomteklay17@gmail.com | LinkedIn: linkedin.com/in/nahom-teklay | GitH
   return (
     <>
       {!isOpen && (
-        <div className="tracy-trigger wobble-animation" onClick={() => setIsOpen(true)} title="Chat with Tracy">
-          <Strands
-            colors={["#040303","#5100dc","#06B6D4"]}
-            count={4}
-            speed={0.7}
-            amplitude={1}
-            waviness={1.6}
-            thickness={0.7}
-            glow={2.6}
-            taper={3}
-            spread={1}
-            intensity={0.6}
-            saturation={1.5}
-            opacity={1}
-            scale={1.5}
-            glass
-            refraction={0.3}
-            dispersion={0}
-            glassSize={1}
-            hueShift={0.32}
-          />
+        <div className="tracy-trigger" onClick={() => setIsOpen(true)} title="Chat with Tracy">
+          <div className="tracy-orb">
+            <div className="tracy-ring tracy-ring-1" />
+            <div className="tracy-ring tracy-ring-2" />
+            <div className="tracy-ring tracy-ring-3" />
+            <div className="tracy-core" />
+          </div>
         </div>
       )}
 
