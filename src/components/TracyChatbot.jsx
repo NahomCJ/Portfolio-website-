@@ -103,7 +103,6 @@ CONTACT: nahomteklay17@gmail.com | LinkedIn: linkedin.com/in/nahom-teklay | GitH
           <div className="tracy-orb">
             <div className="tracy-ring tracy-ring-1" />
             <div className="tracy-ring tracy-ring-2" />
-            <div className="tracy-ring tracy-ring-3" />
             <div className="tracy-core" />
           </div>
         </div>

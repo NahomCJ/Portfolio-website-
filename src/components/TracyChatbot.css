@@ -28,23 +28,15 @@
   height: 56px;
   border-top-color: #5100dc;
   border-right-color: #5100dc;
-  animation: tracy-spin 1.6s linear infinite;
+  animation: tracy-spin 8s linear infinite;
 }
 
 .tracy-ring-2 {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-top-color: #06B6D4;
   border-left-color: #06B6D4;
-  animation: tracy-spin 2.2s linear infinite reverse;
-}
-
-.tracy-ring-3 {
-  width: 28px;
-  height: 28px;
-  border-top-color: #a855f7;
-  border-right-color: #a855f7;
-  animation: tracy-spin 1s linear infinite;
+  animation: tracy-spin 12s linear infinite reverse;
 }
 
 .tracy-core {
