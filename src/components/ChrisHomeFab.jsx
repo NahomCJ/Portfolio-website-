@@ -8,11 +8,11 @@ import { useEffect, useRef, useState, useCallback } from "react";
 // ── Constants ──────────────────────────────────────────────────────────────────
 const TEAL = "#00D4B8";
 const SHEET_BG = "#0D0D22";
-const STRAND_COLORS = ["#7C3AED", "#06B6D4"];
+const STRAND_COLORS = ["#5B21B6", "#4C1D95"];
 const STRAND_COUNT = 4;
 const AMPLITUDE = 1.3;
 const WAVINESS = 2.0;
-const THICKNESS = 0.7;
+const THICKNESS = 0.35;
 const GLOW = 2.1;
 const TAPER = 0.5;
 const SPREAD = 0.7;
@@ -81,11 +81,11 @@ function drawStrands(canvas, time, pulseValue, speed) {
     };
 
     // Outer bloom
-    drawPath(0.22, baseStroke * 7 * GLOW * pulseBoost, 8);
+    drawPath(0.08, baseStroke * 7 * GLOW * pulseBoost, 8);
     // Inner halo
-    drawPath(0.6, baseStroke * 2.5, 2);
+    drawPath(0.28, baseStroke * 2.5, 2);
     // Bright core
-    drawPath(0.9, baseStroke, 0);
+    drawPath(0.52, baseStroke, 0);
   }
 
   ctx.restore();
@@ -431,7 +431,7 @@ export default function ChrisHomeFab({ size = 56, onSend }) {
         <StrandsOrb
           size={size}
           pulseValue={wakeActive ? glowPulse : 0}
-          speed={respondingMode ? 0.15 : 0.02}
+          speed={respondingMode ? 0.45 : 0.07}
         />
       </div>
 
