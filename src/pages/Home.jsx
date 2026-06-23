@@ -161,7 +161,7 @@ const EDUCATION = [
   },
   {
     year: '2024 – 2027',
-    degree: 'BSc in Computer Science & Artificial Intelligence - Minor in Cyber Security',
+    degree: 'BSc in Computer Science & Artificial Intelligence',
     school: 'Vistula University',
     location: 'Warsaw, Poland',
     gpa: 'GPA 3.92 / 4.0',
