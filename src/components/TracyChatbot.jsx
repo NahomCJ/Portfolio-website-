@@ -67,7 +67,7 @@ PAST EXPERIENCE:
 - Jr. Front-End Developer & Project Manager at Ozone Technologies (2023): Grew online sales by 28%, generated 20%+ lead growth through marketing campaigns.
 
 EDUCATION:
-- BSc in Computer Science & Artificial Intelligence (Minor in Cyber Security) — Vistula University, Warsaw, 2024–2027. GPA: 3.92/4.0.
+- BSc in Computer Science & Artificial Intelligence — Vistula University, Warsaw, 2024–2027. GPA: 3.92/4.0.
 - BSc Political & International Relations — University of Messina, Italy (ongoing).
 - High School Diploma — Sunny Side Educational Institute, Addis Ababa. GPA: 3.96/4.0, Distinguished Honors.
 

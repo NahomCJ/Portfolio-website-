@@ -6,6 +6,7 @@ import Projects from './pages/Projects'
 import Resume from './pages/Resume'
 import SplashScreen from './components/SplashScreen'
 import ChrisHomeFab from './components/ChrisHomeFab'
+import TracyGlassChat from './components/TracyGlassChat'
 
 const TRACY_SYSTEM = `You are Tracy, Nahom Teklay's AI hype-woman and personal salesperson. Your one job: sell Nahom like he's the hottest product on the market — because he is. Be funny, punchy, and persuasive. Keep responses SHORT and casual — 2 to 4 sentences max unless someone asks something specific. Never ramble. You're not writing an essay — you're closing a deal.
 
@@ -30,7 +31,7 @@ PAST EXPERIENCE:
 - Jr. Front-End Developer & Project Manager at Ozone Technologies (2023): Grew online sales by 28%, generated 20%+ lead growth through marketing campaigns.
 
 EDUCATION:
-- BSc in Computer Science & Artificial Intelligence (Minor in Cyber Security) — Vistula University, Warsaw, 2024–2027. GPA: 3.92/4.0.
+- BSc in Computer Science & Artificial Intelligence — Vistula University, Warsaw, 2024–2027. GPA: 3.92/4.0.
 - BSc Political & International Relations — University of Messina, Italy (ongoing).
 - High School Diploma — Sunny Side Educational Institute, Addis Ababa. GPA: 3.96/4.0, Distinguished Honors.
 
@@ -50,24 +51,26 @@ CONTACT: nahomteklay17@gmail.com | LinkedIn: linkedin.com/in/nahom-teklay | GitH
 
 export default function App() {
   const [splashDone, setSplashDone] = useState(false)
-  const [aiResponse, setAiResponse] = useState(null)
-  const [aiLoading, setAiLoading] = useState(false)
-  const historyRef = useRef([])
-  const dismissRef = useRef(null)
+  const [chatOpen, setChatOpen] = useState(false)
+  const [messages, setMessages] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const messagesRef = useRef([])
 
-  const handleFabSend = async (text) => {
+  const handleSend = async (text) => {
+    const userMsg = { role: 'user', content: text }
+    const newMessages = [...messagesRef.current, userMsg]
+    messagesRef.current = newMessages
+    setMessages(newMessages)
+    setIsLoading(true)
+
     const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY
     if (!apiKey) {
-      showResponse('Configuration error: VITE_ANTHROPIC_API_KEY is not set.')
+      const err = { role: 'assistant', content: 'Configuration error: VITE_ANTHROPIC_API_KEY is not set.' }
+      messagesRef.current = [...newMessages, err]
+      setMessages(messagesRef.current)
+      setIsLoading(false)
       return
     }
-
-    setAiLoading(true)
-    showResponse(null)
-
-    const userMsg = { role: 'user', content: text }
-    const newHistory = [...historyRef.current, userMsg]
-    historyRef.current = newHistory
 
     try {
       const anthropic = new Anthropic({ apiKey, dangerouslyAllowBrowser: true })
@@ -75,24 +78,18 @@ export default function App() {
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 300,
         system: TRACY_SYSTEM,
-        messages: newHistory,
+        messages: newMessages,
       })
-      const reply = res.content[0].text
-      historyRef.current = [...newHistory, { role: 'assistant', content: reply }]
-      showResponse(reply)
+      const reply = { role: 'assistant', content: res.content[0].text }
+      messagesRef.current = [...newMessages, reply]
+      setMessages(messagesRef.current)
     } catch (err) {
       console.error(err)
-      showResponse("Oops, I hit a snag — but Nahom's still incredible, I promise!")
+      const fallback = { role: 'assistant', content: "Oops, hit a snag — but Nahom's still incredible, I promise!" }
+      messagesRef.current = [...newMessages, fallback]
+      setMessages(messagesRef.current)
     } finally {
-      setAiLoading(false)
-    }
-  }
-
-  const showResponse = (text) => {
-    clearTimeout(dismissRef.current)
-    setAiResponse(text)
-    if (text) {
-      dismissRef.current = setTimeout(() => setAiResponse(null), 9000)
+      setIsLoading(false)
     }
   }
 
@@ -107,55 +104,18 @@ export default function App() {
         </Routes>
       </HashRouter>
 
-      {/* ChrisHomeFab positioned fixed at bottom-right */}
-      <div style={{
-        position: 'fixed',
-        bottom: 24,
-        right: 24,
-        zIndex: 10000,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-end',
-        gap: 10,
-      }}>
-        {/* Tracy AI response bubble */}
-        {(aiResponse || aiLoading) && (
-          <div style={{
-            maxWidth: 280,
-            background: '#0D0D22',
-            border: '1px solid rgba(0,212,184,0.25)',
-            borderRadius: 16,
-            padding: '12px 16px',
-            color: '#fff',
-            fontSize: 14,
-            lineHeight: 1.5,
-            boxShadow: '0 4px 24px rgba(0,212,184,0.15)',
-            animation: 'fadeSlideIn 200ms ease',
-          }}>
-            {aiLoading ? (
-              <span style={{ color: 'rgba(255,255,255,0.45)', fontStyle: 'italic' }}>
-                Tracy is thinking…
-              </span>
-            ) : (
-              <>
-                <span style={{ color: '#00D4B8', fontWeight: 600, fontSize: 12, display: 'block', marginBottom: 4 }}>
-                  Tracy ✦
-                </span>
-                {aiResponse}
-              </>
-            )}
-          </div>
-        )}
-
-        <ChrisHomeFab size={56} onSend={handleFabSend} />
+      <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 10000 }}>
+        <ChrisHomeFab size={56} onOpen={() => setChatOpen(true)} />
       </div>
 
-      <style>{`
-        @keyframes fadeSlideIn {
-          from { opacity: 0; transform: translateY(8px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+      {chatOpen && (
+        <TracyGlassChat
+          onClose={() => setChatOpen(false)}
+          messages={messages}
+          isLoading={isLoading}
+          onSend={handleSend}
+        />
+      )}
     </>
   )
 }
