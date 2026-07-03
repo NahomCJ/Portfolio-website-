@@ -54,22 +54,25 @@ RULES:
 --- NAHOM'S FULL BACKGROUND ---
 
 CURRENT ROLES:
-- Founder & CEO at Chronos (Sep 2025–Present, San Francisco): Building an AI Fintech Super App — core banking, AI-Financier, BNPL, Crypto & NFT marketplace. Leading a team of 7. Personally driving AI/ML model training, 30% of the Flutter mobile app, and business strategy.
-- Founder In Residence at Genoa Entrepreneurship School (Oct 2025–Present): Pre-accelerator with mentorship from YC alumni, FAANG operators, and investors including Douglas Leone (Sequoia Capital) and leaders from Google, Meta, Stripe, Tesla, Apple, Microsoft, and Rippling.
+- Founder & CEO at Chronos (Sep 2025–Present, San Francisco): Building an AI Fintech Super App — core banking, AI-Financier, BNPL, Crypto & NFT marketplace with a live operation system. Leading a team of 7 engineers and designers. Personally driving AI/ML model training & fine-tuning, 30% of the Flutter mobile app, and business & marketing strategy.
+- Founder In Residence at Genoa Entrepreneurship School (Oct 2025–Present, Genoa, Italy · Hybrid): Pre-accelerator with mentorship from YC alumni founders, FAANG operators, and investors including Douglas Leone (Sequoia Capital) and leaders from Google, Meta, Stripe, Tesla, Apple, Microsoft, and Rippling. Focus: customer discovery, product validation, go-to-market strategy, fundraising, and pitch preparation.
 
 PAST EXPERIENCE:
-- CEO & CTO at Marcus (Jun–Dec 2025, Warsaw): Built a full-stack memory-augmented AI assistant with long-term context (ChromaDB + SQLite), real-time web search, image & video generation, voice via Hume EVI, and a built-in coding agent (Sophia). FastAPI backend with 15+ endpoints. Three-layer memory system. Two VS Code extensions. Website: marcus-ai.eu.
-- Data Science Intern at OESON (Apr–Jul 2025, Warsaw): Analyzed 150,000+ anonymized patient records. Built ML classification models with MLOps pipelines on Google Colab — 22% improvement in symptom prediction accuracy.
-- AI Engineer Intern at GAOTek Inc. (Aug–Oct 2024, Brooklyn NYC): Fine-tuned LLMs, built REID fraud detection and BNPL risk scoring models on AWS EC2 — 27% improvement in anomaly detection accuracy.
-- Software Engineer Intern at Ozone Technologies (Apr–Aug 2024, Addis Ababa): Contributed 30% of the Telemed mobile app (healthcare consultation, booking, prescriptions). Led hospital & pharmacy partnerships — 25% profit margin.
-- Front-End Developer at Kuraz Tech (Feb–Mar 2024, Addis Ababa): Built UIs for an e-learning platform impacting 2,000+ users.
-- Founding Engineer at Janderebaw (Apr 2022–Mar 2024): Co-founded a non-profit now serving 300,000+ people. Contributed 40% of the codebase, raised $50,000+ through crowdfunding.
-- Jr. Front-End Developer & Project Manager at Ozone Technologies (2023): Grew online sales by 28%, generated 20%+ lead growth through marketing campaigns.
+- CEO & CTO at Marcus (Jun–Dec 2025, Warsaw): Built a full-stack memory-augmented AI assistant with long-term context (ChromaDB + SQLite), real-time web search, image & video generation, voice via Hume EVI, and a built-in coding agent (Sophia). FastAPI backend with 15+ REST/SSE endpoints. Three-layer memory system (ChromaDB vector search, Claude-compressed rolling fact sheets, live session history). Two VS Code extensions (Sophia + Marcus Code). Website: marcus-ai.eu.
+- Data Science Intern at OESON (Apr–Jul 2025, Warsaw): Analyzed 150,000+ anonymized patient records. Built ML classification models with MLOps pipelines on Google Colab — 22% improvement in symptom prediction accuracy. Delivered dashboards in Matplotlib and Seaborn for clinical decision support.
+- AI Engineer Intern at GAOTek Inc. (Aug–Oct 2024, Brooklyn NYC): Fine-tuned LLMs, built REID fraud detection and BNPL risk scoring models on AWS EC2 — 27% improvement in anomaly detection accuracy. Contributed to full-stack automation using Git Copilot, increasing lead engagement by 19%.
+- Software Engineer Intern at Ozone Technologies (Apr–Aug 2024, Addis Ababa): Contributed 30% of the Telemed mobile app (healthcare consultation, booking, prescriptions). Integrated RESTful APIs improving loading performance by 40%. Led hospital & pharmacy partnerships — 25% profit margin.
+- Front-End Developer at Kuraz Tech (Feb–Mar 2024, Addis Ababa): Built UIs for an e-learning platform impacting 2,000+ users. Integrated RESTful APIs reducing manual update time by 50%.
+- Founding Engineer at Janderebaw (Apr 2022–Mar 2024, Addis Ababa): Co-founded a non-profit now serving 300,000+ people. Contributed 40% of the codebase, managed cloud database infrastructure.
+- Jr. Front-End Developer & Project Manager at Ozone Technologies (2023, Addis Ababa): Grew online sales by 28%, generated 20%+ lead growth through marketing campaigns. Maintained 99.9% platform availability post-launch.
+- Network Marketing & Sales Manager at Break Through S.C (Aug–Oct 2023, Addis Ababa).
+- Self Development Trainer at Break Through S.C (Jun–Aug 2023, Addis Ababa).
 
 EDUCATION:
+- BSc in Information Science & Technology — New York University, New York (2026–Present, incoming fall transfer).
 - BSc in Computer Science & Artificial Intelligence — Vistula University, Warsaw, 2024–2027. GPA: 3.92/4.0.
-- BSc Political & International Relations — University of Messina, Italy (ongoing).
-- High School Diploma — Sunny Side Educational Institute, Addis Ababa. GPA: 3.96/4.0, Distinguished Honors.
+- BSc Political & International Relations — University of Messina, Italy, 2021–2026. GPA: 3.5/4.0.
+- High School Diploma — Sunny Side Educational Institute, Addis Ababa, 2016–2020. GPA: 3.96/4.0, Distinguished Honors.
 
 SKILLS:
 - Languages: Python, Flutter/Dart, Java, C++, TypeScript, R
