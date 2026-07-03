@@ -54,7 +54,7 @@ RULES:
 --- NAHOM'S FULL BACKGROUND ---
 
 CURRENT ROLES:
-- Founder & CEO at Chronos (Sep 2025–Present, San Francisco): Building an AI Fintech Super App — core banking, AI-Financier, BNPL, Crypto & NFT marketplace with a live operation system. Leading a team of 7 engineers and designers. Personally driving AI/ML model training & fine-tuning, 30% of the Flutter mobile app, and business & marketing strategy.
+- Founder & CEO at Chronos (Jun 2026–Present, San Francisco): Building an AI Fintech Super App — core banking, AI-Financier, BNPL, Crypto & NFT marketplace with a live operation system. Leading a team of 7 engineers and designers. Personally driving AI/ML model training & fine-tuning, 30% of the Flutter mobile app, and business & marketing strategy.
 - Founder In Residence at Genoa Entrepreneurship School (Oct 2025–Present, Genoa, Italy · Hybrid): Pre-accelerator with mentorship from YC alumni founders, FAANG operators, and investors including Douglas Leone (Sequoia Capital) and leaders from Google, Meta, Stripe, Tesla, Apple, Microsoft, and Rippling. Focus: customer discovery, product validation, go-to-market strategy, fundraising, and pitch preparation.
 
 PAST EXPERIENCE:
