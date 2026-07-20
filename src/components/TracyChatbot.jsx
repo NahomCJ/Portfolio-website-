@@ -69,7 +69,6 @@ PAST EXPERIENCE:
 - Self Development Trainer at Break Through S.C (Jun–Aug 2023, Addis Ababa).
 
 EDUCATION:
-- BSc in Information Science & Technology — New York University, New York (2026–Present, incoming fall transfer).
 - BSc in Computer Science & Artificial Intelligence — Vistula University, Warsaw, 2024–2027. GPA: 3.92/4.0.
 - BSc Political & International Relations — University of Messina, Italy, 2021–2026. GPA: 3.5/4.0.
 - High School Diploma — Sunny Side Educational Institute, Addis Ababa, 2016–2020. GPA: 3.96/4.0, Distinguished Honors.
