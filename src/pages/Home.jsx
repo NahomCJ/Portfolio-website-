@@ -18,9 +18,11 @@ const EXPERIENCE = [
     type: 'Full-time',
     featured: true,
     bullets: [
+      'Building the future of agentic banking & trading for Gen Z.',
       'Building an AI Fintech Super App: core banking, AI-Financier, BNPL, and Crypto & NFT marketplace with a live operation system.',
       'Personally driving AI/ML model training & fine-tuning, 30% of the Flutter mobile app, and business & marketing strategy.',
       'Leading a team of 7 engineers and designers.',
+      'Co-founding team from MIT, Columbia, UCLA, Johns Hopkins University, UCSB, PayPal, Amazon, AWS, Western Alliance Bank, Stanford AI Lab, Walmart, Hackathon Tiers, Andreessen Horowitz (a16z), and Afore Capital.',
     ],
   },
   {
