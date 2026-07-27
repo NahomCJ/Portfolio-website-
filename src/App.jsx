@@ -13,6 +13,20 @@ export default function App() {
   const [messages, setMessages] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const messagesRef = useRef([])
+  const audioRef = useRef(null)
+
+  const openChat = () => {
+    setChatOpen(true)
+    audioRef.current?.play().catch(() => {})
+  }
+
+  const closeChat = () => {
+    setChatOpen(false)
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current.currentTime = 0
+    }
+  }
 
   const handleSend = async (text) => {
     const userMsg = { role: 'user', content: text }
@@ -53,13 +67,15 @@ export default function App() {
         </Routes>
       </HashRouter>
 
+      <audio ref={audioRef} src="/the-weeknd-timeless-instrumental.mp3" loop />
+
       <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 10000 }}>
-        <ChrisHomeFab size={56} onOpen={() => setChatOpen(true)} />
+        <ChrisHomeFab size={56} onOpen={openChat} />
       </div>
 
       {chatOpen && (
         <TracyGlassChat
-          onClose={() => setChatOpen(false)}
+          onClose={closeChat}
           messages={messages}
           isLoading={isLoading}
           onSend={handleSend}
