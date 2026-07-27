@@ -6,6 +6,7 @@ import Resume from './pages/Resume'
 import SplashScreen from './components/SplashScreen'
 import ChrisHomeFab from './components/ChrisHomeFab'
 import TracyGlassChat from './components/TracyGlassChat'
+import { connectAudioReactivity } from './lib/audioReactivity'
 
 export default function App() {
   const [splashDone, setSplashDone] = useState(false)
@@ -17,7 +18,11 @@ export default function App() {
 
   const openChat = () => {
     setChatOpen(true)
-    audioRef.current?.play().catch(() => {})
+    if (audioRef.current) {
+      audioRef.current.volume = 0.25
+      connectAudioReactivity(audioRef.current)
+      audioRef.current.play().catch(() => {})
+    }
   }
 
   const closeChat = () => {
@@ -25,6 +30,14 @@ export default function App() {
     if (audioRef.current) {
       audioRef.current.pause()
       audioRef.current.currentTime = 0
+    }
+  }
+
+  const toggleChat = () => {
+    if (chatOpen) {
+      closeChat()
+    } else {
+      openChat()
     }
   }
 
@@ -70,7 +83,7 @@ export default function App() {
       <audio ref={audioRef} src="/the-weeknd-timeless-instrumental.mp3" loop />
 
       <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 10000 }}>
-        <ChrisHomeFab size={56} onOpen={openChat} />
+        <ChrisHomeFab size={56} onOpen={toggleChat} />
       </div>
 
       {chatOpen && (
