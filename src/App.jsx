@@ -6,6 +6,7 @@ import Resume from './pages/Resume'
 import SplashScreen from './components/SplashScreen'
 import ChrisHomeFab from './components/ChrisHomeFab'
 import TracyGlassChat from './components/TracyGlassChat'
+import { connectAudioReactivity } from './lib/audioReactivity'
 
 export default function App() {
   const [splashDone, setSplashDone] = useState(false)
@@ -19,6 +20,7 @@ export default function App() {
     setChatOpen(true)
     if (audioRef.current) {
       audioRef.current.volume = 0.25
+      connectAudioReactivity(audioRef.current)
       audioRef.current.play().catch(() => {})
     }
   }
