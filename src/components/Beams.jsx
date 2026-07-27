@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
 import { degToRad } from 'three/src/math/MathUtils.js';
+import { audioLevel } from '../lib/audioReactivity';
 import './Beams.css';
 
 function extendMaterial(BaseMaterial, cfg) {
@@ -145,7 +146,7 @@ function createStackedPlanesBufferGeometry(n, width, height, spacing, heightSegm
   return geometry;
 }
 
-const MergedPlanes = forwardRef(({ material, width, count, height }, ref) => {
+const MergedPlanes = forwardRef(({ material, width, count, height, baseNoise }, ref) => {
   const mesh = useRef(null);
   useImperativeHandle(ref, () => mesh.current);
   const geometry = useMemo(
@@ -153,14 +154,23 @@ const MergedPlanes = forwardRef(({ material, width, count, height }, ref) => {
     [count, width, height]
   );
   useFrame((_, delta) => {
-    mesh.current.material.uniforms.time.value += 0.1 * delta;
+    const level = audioLevel.current;
+    mesh.current.material.uniforms.time.value += 0.1 * delta * (1 + level * 1.5);
+    mesh.current.material.uniforms.uNoiseIntensity.value = baseNoise * (1 + level * 0.8);
   });
   return <mesh ref={mesh} geometry={geometry} material={material} />;
 });
 MergedPlanes.displayName = 'MergedPlanes';
 
 const PlaneNoise = forwardRef((props, ref) => (
-  <MergedPlanes ref={ref} material={props.material} width={props.width} count={props.count} height={props.height} />
+  <MergedPlanes
+    ref={ref}
+    material={props.material}
+    width={props.width}
+    count={props.count}
+    height={props.height}
+    baseNoise={props.baseNoise}
+  />
 ));
 PlaneNoise.displayName = 'PlaneNoise';
 
@@ -248,7 +258,7 @@ export default function Beams({
   return (
     <CanvasWrapper>
       <group rotation={[0, 0, degToRad(rotation)]}>
-        <PlaneNoise ref={meshRef} material={beamMaterial} count={beamNumber} width={beamWidth} height={beamHeight} />
+        <PlaneNoise ref={meshRef} material={beamMaterial} count={beamNumber} width={beamWidth} height={beamHeight} baseNoise={noiseIntensity} />
         <DirLight color={lightColor} position={[0, 3, 10]} />
       </group>
       <ambientLight intensity={1} />
