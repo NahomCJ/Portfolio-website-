@@ -154,6 +154,14 @@ const SKILLS = [
 
 const EDUCATION = [
   {
+    year: '2026 – 2027',
+    degree: 'BSc in Information Systems and Technology',
+    school: 'New York University',
+    location: 'New York, United States',
+    note: 'Incoming fall transfer',
+    logo: '/nyu-logo.svg',
+  },
+  {
     year: '2024 – 2027',
     degree: 'BSc in Computer Science & Artificial Intelligence',
     school: 'Vistula University',
