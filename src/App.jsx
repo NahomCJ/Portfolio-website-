@@ -17,7 +17,10 @@ export default function App() {
 
   const openChat = () => {
     setChatOpen(true)
-    audioRef.current?.play().catch(() => {})
+    if (audioRef.current) {
+      audioRef.current.volume = 0.25
+      audioRef.current.play().catch(() => {})
+    }
   }
 
   const closeChat = () => {
@@ -25,6 +28,14 @@ export default function App() {
     if (audioRef.current) {
       audioRef.current.pause()
       audioRef.current.currentTime = 0
+    }
+  }
+
+  const toggleChat = () => {
+    if (chatOpen) {
+      closeChat()
+    } else {
+      openChat()
     }
   }
 
@@ -70,7 +81,7 @@ export default function App() {
       <audio ref={audioRef} src="/the-weeknd-timeless-instrumental.mp3" loop />
 
       <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 10000 }}>
-        <ChrisHomeFab size={56} onOpen={openChat} />
+        <ChrisHomeFab size={56} onOpen={toggleChat} />
       </div>
 
       {chatOpen && (
