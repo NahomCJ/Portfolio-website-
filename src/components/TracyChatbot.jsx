@@ -10,6 +10,7 @@ export default function TracyChatbot() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+  const audioRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -18,6 +19,19 @@ export default function TracyChatbot() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const openChat = () => {
+    setIsOpen(true);
+    audioRef.current?.play().catch(() => {});
+  };
+
+  const closeChat = () => {
+    setIsOpen(false);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+  };
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -100,8 +114,9 @@ CONTACT: nahomteklay17@gmail.com | LinkedIn: linkedin.com/in/nahom-teklay | GitH
 
   return (
     <>
+      <audio ref={audioRef} src="/the-weekend.mp3" loop />
       {!isOpen && (
-        <div className="tracy-trigger" onClick={() => setIsOpen(true)} title="Chat with Tracy">
+        <div className="tracy-trigger" onClick={openChat} title="Chat with Tracy">
           <div className="tracy-orb">
             <div className="tracy-ring tracy-ring-1" />
             <div className="tracy-ring tracy-ring-2" />
@@ -117,7 +132,7 @@ CONTACT: nahomteklay17@gmail.com | LinkedIn: linkedin.com/in/nahom-teklay | GitH
               <span className="tracy-status"></span>
               Tracy - AI Assistant
             </div>
-            <button className="tracy-close" onClick={() => setIsOpen(false)}>&times;</button>
+            <button className="tracy-close" onClick={closeChat}>&times;</button>
           </div>
 
           <div className="tracy-messages">
