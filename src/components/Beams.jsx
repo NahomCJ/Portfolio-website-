@@ -160,12 +160,13 @@ const MergedPlanes = forwardRef(({ material, width, count, height, baseNoise, ba
     const beat = audioBeat.current;
     const u = mesh.current.material.uniforms;
     // Idle (no music): every term is 0, so this collapses back to the
-    // original constant-speed, constant-noise, dead-ahead flow.
-    u.time.value += 0.1 * delta * (1 + level * 1.5 + beat * 1.2);
-    u.uNoiseIntensity.value = baseNoise * (1 + level * 0.8 + beat * 1.6);
-    u.uScale.value = baseScale * (1 + beat * 0.5 - bass * 0.15);
-    u.uFlowSkew.value = treble * 0.7 + bass * 0.25;
-    u.uDisperse.value = beat;
+    // original constant-speed, constant-noise, dead-ahead flow. Kept
+    // deliberately gentle — a smooth sway rather than a buzzy pulse.
+    u.time.value += 0.1 * delta * (1 + level * 0.7 + beat * 0.35);
+    u.uNoiseIntensity.value = baseNoise * (1 + level * 0.35 + beat * 0.4);
+    u.uScale.value = baseScale * (1 + beat * 0.12 - bass * 0.04);
+    u.uFlowSkew.value = treble * 0.45 + bass * 0.15;
+    u.uDisperse.value = beat * 0.5;
   });
   return <mesh ref={mesh} geometry={geometry} material={material} />;
 });
@@ -183,6 +184,82 @@ const PlaneNoise = forwardRef((props, ref) => (
   />
 ));
 PlaneNoise.displayName = 'PlaneNoise';
+
+// Slowly rotates the beam group so the flow direction drifts over the
+// course of a couple of minutes instead of always running the same way
+// on the same plane, nudged a little further by the music's tone.
+const DriftingGroup = ({ baseRotation, children }) => {
+  const group = useRef(null);
+  useFrame(() => {
+    if (!group.current) return;
+    const treble = audioTreble.current;
+    const bass = audioBass.current;
+    const drift = Math.sin(performance.now() * 0.00004) * 0.18 + (treble - bass) * 0.3;
+    group.current.rotation.z = degToRad(baseRotation) + drift;
+  });
+  return <group ref={group}>{children}</group>;
+};
+
+// A soft, continuous ring of light that breathes outward from center —
+// the "ripple / bubble" accent layered behind the beams. Very faint at
+// rest, it blooms gently on bass hits.
+const rippleVertexShader = `
+varying vec2 vUv;
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}`;
+
+const rippleFragmentShader = `
+varying vec2 vUv;
+uniform float uTime;
+uniform float uBeat;
+uniform float uBass;
+uniform vec3 uColor;
+void main() {
+  vec2 center = vec2(0.5, 0.5);
+  float dist = distance(vUv, center);
+  float speed = 0.35 + uBass * 0.5;
+  float wave = 0.5 + 0.5 * sin(dist * 16.0 - uTime * speed);
+  float glow = pow(wave, 5.0);
+  float fade = smoothstep(0.9, 0.05, dist);
+  float amp = (0.05 + uBeat * 0.32) * fade;
+  gl_FragColor = vec4(uColor, glow * amp);
+}`;
+
+const RippleField = ({ color }) => {
+  const rgb = useMemo(() => hexToNormalizedRGB(color), [color]);
+  const materialRef = useRef(null);
+  const uniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uBeat: { value: 0 },
+      uBass: { value: 0 },
+      uColor: { value: new THREE.Color(rgb[0], rgb[1], rgb[2]) },
+    }),
+    [rgb]
+  );
+
+  useFrame((_, delta) => {
+    if (!materialRef.current) return;
+    materialRef.current.uniforms.uTime.value += delta;
+    materialRef.current.uniforms.uBeat.value = audioBeat.current;
+    materialRef.current.uniforms.uBass.value = audioBass.current;
+  });
+
+  return (
+    <mesh position={[0, 0, -9]}>
+      <planeGeometry args={[70, 50]} />
+      <shaderMaterial
+        ref={materialRef}
+        vertexShader={rippleVertexShader}
+        fragmentShader={rippleFragmentShader}
+        uniforms={uniforms}
+        transparent
+      />
+    </mesh>
+  );
+};
 
 const DirLight = ({ position, color }) => {
   const dir = useRef(null);
@@ -271,10 +348,11 @@ export default function Beams({
 
   return (
     <CanvasWrapper>
-      <group rotation={[0, 0, degToRad(rotation)]}>
+      <RippleField color={lightColor} />
+      <DriftingGroup baseRotation={rotation}>
         <PlaneNoise ref={meshRef} material={beamMaterial} count={beamNumber} width={beamWidth} height={beamHeight} baseNoise={noiseIntensity} baseScale={scale} />
         <DirLight color={lightColor} position={[0, 3, 10]} />
-      </group>
+      </DriftingGroup>
       <ambientLight intensity={1} />
       <color attach="background" args={['#000000']} />
       <PerspectiveCamera makeDefault position={[0, 0, 20]} fov={30} />

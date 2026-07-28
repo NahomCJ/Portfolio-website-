@@ -69,21 +69,22 @@ function tick() {
     const rawBass = bassSum / bassEnd / 255;
     const rawTreble = trebleSum / (n - trebleStart) / 255;
 
-    // Fast attack, slower release so motion feels musical, not jittery.
-    smoothLevel += (rawLevel - smoothLevel) * (rawLevel > smoothLevel ? 0.5 : 0.08);
-    smoothBass += (rawBass - smoothBass) * (rawBass > smoothBass ? 0.6 : 0.1);
-    smoothTreble += (rawTreble - smoothTreble) * (rawTreble > smoothTreble ? 0.5 : 0.08);
+    // Gentle attack, slow release — a soft swell rather than a jittery snap.
+    smoothLevel += (rawLevel - smoothLevel) * (rawLevel > smoothLevel ? 0.25 : 0.05);
+    smoothBass += (rawBass - smoothBass) * (rawBass > smoothBass ? 0.3 : 0.06);
+    smoothTreble += (rawTreble - smoothTreble) * (rawTreble > smoothTreble ? 0.25 : 0.05);
 
     // Onset detection: a bass hit meaningfully above its rolling average
-    // triggers the disperse pulse; it then decays on its own.
+    // eases the disperse pulse up, then lets it settle back down — a
+    // breathing pulse instead of a sudden pop.
     bassAvg += (rawBass - bassAvg) * 0.05;
-    if (rawBass > bassAvg * 1.35 + 0.05) beatEnv = 1;
-    beatEnv *= 0.9;
+    const onset = rawBass > bassAvg * 1.35 + 0.05;
+    beatEnv += ((onset ? 1 : 0) - beatEnv) * (onset ? 0.2 : 0.045);
   } else {
-    smoothLevel *= 0.95;
-    smoothBass *= 0.95;
-    smoothTreble *= 0.95;
-    beatEnv *= 0.9;
+    smoothLevel *= 0.97;
+    smoothBass *= 0.97;
+    smoothTreble *= 0.97;
+    beatEnv *= 0.95;
   }
 
   audioLevel.current = smoothLevel;
