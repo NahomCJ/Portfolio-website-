@@ -160,12 +160,13 @@ const MergedPlanes = forwardRef(({ material, width, count, height, baseNoise, ba
     const beat = audioBeat.current;
     const u = mesh.current.material.uniforms;
     // Idle (no music): every term is 0, so this collapses back to the
-    // original constant-speed, constant-noise, dead-ahead flow.
-    u.time.value += 0.1 * delta * (1 + level * 1.5 + beat * 1.2);
-    u.uNoiseIntensity.value = baseNoise * (1 + level * 0.8 + beat * 1.6);
-    u.uScale.value = baseScale * (1 + beat * 0.5 - bass * 0.15);
-    u.uFlowSkew.value = treble * 0.7 + bass * 0.25;
-    u.uDisperse.value = beat;
+    // original constant-speed, constant-noise, dead-ahead flow. Kept
+    // deliberately gentle — a smooth sway rather than a buzzy pulse.
+    u.time.value += 0.1 * delta * (1 + level * 0.7 + beat * 0.35);
+    u.uNoiseIntensity.value = baseNoise * (1 + level * 0.35 + beat * 0.4);
+    u.uScale.value = baseScale * (1 + beat * 0.12 - bass * 0.04);
+    u.uFlowSkew.value = treble * 0.45 + bass * 0.15;
+    u.uDisperse.value = beat * 0.5;
   });
   return <mesh ref={mesh} geometry={geometry} material={material} />;
 });
@@ -183,6 +184,95 @@ const PlaneNoise = forwardRef((props, ref) => (
   />
 ));
 PlaneNoise.displayName = 'PlaneNoise';
+
+// Swings the beam group's flow direction through a wide, ever-changing
+// range of angles — left, right, steep, shallow — instead of holding
+// one fixed line. Two sine waves at different (slow) periods keep the
+// motion smooth and non-repeating for several minutes, and the music's
+// tone gives it a little extra push either way.
+const DriftingGroup = ({ baseRotation, children }) => {
+  const group = useRef(null);
+  useFrame(() => {
+    if (!group.current) return;
+    const treble = audioTreble.current;
+    const bass = audioBass.current;
+    const t = performance.now();
+    const drift =
+      Math.sin(t * 0.00007) * 1.05 +
+      Math.sin(t * 0.000023 + 1.7) * 0.85 +
+      (treble - bass) * 0.4;
+    group.current.rotation.z = degToRad(baseRotation) + drift;
+  });
+  return <group ref={group}>{children}</group>;
+};
+
+// A ring of light that breathes outward from a point that itself drifts
+// left/right over time — the "water ripple / bubble" layer behind the
+// beams. Two overlapping wave fronts (different frequency/speed) give it
+// an organic, layered ripple texture rather than one clean ring, and it
+// blooms brighter on bass hits.
+const rippleVertexShader = `
+varying vec2 vUv;
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}`;
+
+const rippleFragmentShader = `
+varying vec2 vUv;
+uniform float uTime;
+uniform float uBeat;
+uniform float uBass;
+uniform float uCenterX;
+uniform vec3 uColor;
+void main() {
+  vec2 center = vec2(uCenterX, 0.5);
+  float dist = distance(vUv, center);
+  float speed = 0.4 + uBass * 0.6;
+  float wave1 = 0.5 + 0.5 * sin(dist * 16.0 - uTime * speed);
+  float wave2 = 0.5 + 0.5 * sin(dist * 27.0 - uTime * speed * 1.4 + 1.2);
+  float glow = pow(wave1, 5.0) * 0.7 + pow(wave2, 6.0) * 0.5;
+  float fade = smoothstep(0.95, 0.05, dist);
+  float amp = (0.12 + uBeat * 0.45) * fade;
+  gl_FragColor = vec4(uColor, glow * amp);
+}`;
+
+const RippleField = ({ color }) => {
+  const rgb = useMemo(() => hexToNormalizedRGB(color), [color]);
+  const materialRef = useRef(null);
+  const uniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uBeat: { value: 0 },
+      uBass: { value: 0 },
+      uCenterX: { value: 0.5 },
+      uColor: { value: new THREE.Color(rgb[0], rgb[1], rgb[2]) },
+    }),
+    [rgb]
+  );
+
+  useFrame((_, delta) => {
+    if (!materialRef.current) return;
+    const u = materialRef.current.uniforms;
+    u.uTime.value += delta;
+    u.uBeat.value = audioBeat.current;
+    u.uBass.value = audioBass.current;
+    u.uCenterX.value = 0.5 + Math.sin(performance.now() * 0.00005 + 0.6) * 0.32;
+  });
+
+  return (
+    <mesh position={[0, 0, -9]}>
+      <planeGeometry args={[70, 50]} />
+      <shaderMaterial
+        ref={materialRef}
+        vertexShader={rippleVertexShader}
+        fragmentShader={rippleFragmentShader}
+        uniforms={uniforms}
+        transparent
+      />
+    </mesh>
+  );
+};
 
 const DirLight = ({ position, color }) => {
   const dir = useRef(null);
@@ -271,10 +361,11 @@ export default function Beams({
 
   return (
     <CanvasWrapper>
-      <group rotation={[0, 0, degToRad(rotation)]}>
+      <RippleField color={lightColor} />
+      <DriftingGroup baseRotation={rotation}>
         <PlaneNoise ref={meshRef} material={beamMaterial} count={beamNumber} width={beamWidth} height={beamHeight} baseNoise={noiseIntensity} baseScale={scale} />
         <DirLight color={lightColor} position={[0, 3, 10]} />
-      </group>
+      </DriftingGroup>
       <ambientLight intensity={1} />
       <color attach="background" args={['#000000']} />
       <PerspectiveCamera makeDefault position={[0, 0, 20]} fov={30} />
