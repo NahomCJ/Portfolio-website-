@@ -28,8 +28,9 @@ export default function App() {
   const closeChat = () => {
     setChatOpen(false)
     if (audioRef.current) {
+      // Pause in place (don't reset currentTime) so reopening the chat
+      // resumes the track from where it left off instead of restarting.
       audioRef.current.pause()
-      audioRef.current.currentTime = 0
     }
   }
 

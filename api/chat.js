@@ -24,7 +24,7 @@ PAST EXPERIENCE:
 
 EDUCATION:
 - BSc in Information Systems and Technology — New York University, New York, United States, 08/2026–06/2027 (incoming fall transfer).
-- BSc in Computer Science & Artificial Intelligence — Vistula University, Warsaw, 2024–2027. GPA: 3.92/4.0.
+- BSc in Computer Science & Artificial Intelligence — Vistula University, Warsaw, 2024–2027. GPA: 3.93/4.0.
 - BSc Political & International Relations — University of Messina, Italy (ongoing).
 - High School Diploma — Sunny Side Educational Institute, Addis Ababa. GPA: 3.96/4.0, Distinguished Honors.
 
