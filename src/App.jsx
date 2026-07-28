@@ -19,7 +19,7 @@ export default function App() {
   const openChat = () => {
     setChatOpen(true)
     if (audioRef.current) {
-      audioRef.current.volume = 0.25
+      audioRef.current.volume = 0.14
       connectAudioReactivity(audioRef.current)
       audioRef.current.play().catch(() => {})
     }
