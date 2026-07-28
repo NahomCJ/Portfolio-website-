@@ -6,7 +6,7 @@ import Resume from './pages/Resume'
 import SplashScreen from './components/SplashScreen'
 import ChrisHomeFab from './components/ChrisHomeFab'
 import TracyGlassChat from './components/TracyGlassChat'
-import { connectAudioReactivity } from './lib/audioReactivity'
+import { connectAudioReactivity, setWavesActive } from './lib/audioReactivity'
 
 export default function App() {
   const [splashDone, setSplashDone] = useState(false)
@@ -18,6 +18,7 @@ export default function App() {
 
   const openChat = () => {
     setChatOpen(true)
+    setWavesActive(true)
     if (audioRef.current) {
       audioRef.current.volume = 0.14
       connectAudioReactivity(audioRef.current)
@@ -27,6 +28,7 @@ export default function App() {
 
   const closeChat = () => {
     setChatOpen(false)
+    setWavesActive(false)
     if (audioRef.current) {
       // Pause in place (don't reset currentTime) so reopening the chat
       // resumes the track from where it left off instead of restarting.
