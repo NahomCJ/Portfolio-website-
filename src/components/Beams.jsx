@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
 import { degToRad } from 'three/src/math/MathUtils.js';
-import { audioLevel } from '../lib/audioReactivity';
+import { audioLevel, audioBass, audioTreble, audioBeat } from '../lib/audioReactivity';
 import './Beams.css';
 
 function extendMaterial(BaseMaterial, cfg) {
@@ -146,7 +146,7 @@ function createStackedPlanesBufferGeometry(n, width, height, spacing, heightSegm
   return geometry;
 }
 
-const MergedPlanes = forwardRef(({ material, width, count, height, baseNoise }, ref) => {
+const MergedPlanes = forwardRef(({ material, width, count, height, baseNoise, baseScale }, ref) => {
   const mesh = useRef(null);
   useImperativeHandle(ref, () => mesh.current);
   const geometry = useMemo(
@@ -155,8 +155,17 @@ const MergedPlanes = forwardRef(({ material, width, count, height, baseNoise }, 
   );
   useFrame((_, delta) => {
     const level = audioLevel.current;
-    mesh.current.material.uniforms.time.value += 0.1 * delta * (1 + level * 1.5);
-    mesh.current.material.uniforms.uNoiseIntensity.value = baseNoise * (1 + level * 0.8);
+    const bass = audioBass.current;
+    const treble = audioTreble.current;
+    const beat = audioBeat.current;
+    const u = mesh.current.material.uniforms;
+    // Idle (no music): every term is 0, so this collapses back to the
+    // original constant-speed, constant-noise, dead-ahead flow.
+    u.time.value += 0.1 * delta * (1 + level * 1.5 + beat * 1.2);
+    u.uNoiseIntensity.value = baseNoise * (1 + level * 0.8 + beat * 1.6);
+    u.uScale.value = baseScale * (1 + beat * 0.5 - bass * 0.15);
+    u.uFlowSkew.value = treble * 0.7 + bass * 0.25;
+    u.uDisperse.value = beat;
   });
   return <mesh ref={mesh} geometry={geometry} material={material} />;
 });
@@ -170,6 +179,7 @@ const PlaneNoise = forwardRef((props, ref) => (
     count={props.count}
     height={props.height}
     baseNoise={props.baseNoise}
+    baseScale={props.baseScale}
   />
 ));
 PlaneNoise.displayName = 'PlaneNoise';
@@ -211,11 +221,13 @@ export default function Beams({
   uniform float uSpeed;
   uniform float uNoiseIntensity;
   uniform float uScale;
+  uniform float uFlowSkew;
+  uniform float uDisperse;
   ${noise}`,
         vertexHeader: `
   float getPos(vec3 pos) {
-    vec3 noisePos = vec3(pos.x * 0., pos.y - uv.y, pos.z + time * uSpeed * 3.) * uScale;
-    return cnoise(noisePos);
+    vec3 noisePos = vec3(pos.x * uFlowSkew, pos.y - uv.y, pos.z + time * uSpeed * 3.) * uScale;
+    return cnoise(noisePos) * (1.0 + uDisperse * 0.6);
   }
   vec3 getCurrentPos(vec3 pos) {
     vec3 newpos = pos;
@@ -250,6 +262,8 @@ export default function Beams({
           envMapIntensity: 10,
           uNoiseIntensity: noiseIntensity,
           uScale: scale,
+          uFlowSkew: 0,
+          uDisperse: 0,
         },
       }),
     [speed, noiseIntensity, scale]
@@ -258,7 +272,7 @@ export default function Beams({
   return (
     <CanvasWrapper>
       <group rotation={[0, 0, degToRad(rotation)]}>
-        <PlaneNoise ref={meshRef} material={beamMaterial} count={beamNumber} width={beamWidth} height={beamHeight} baseNoise={noiseIntensity} />
+        <PlaneNoise ref={meshRef} material={beamMaterial} count={beamNumber} width={beamWidth} height={beamHeight} baseNoise={noiseIntensity} baseScale={scale} />
         <DirLight color={lightColor} position={[0, 3, 10]} />
       </group>
       <ambientLight intensity={1} />
