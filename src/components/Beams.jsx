@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unknown-property */
-import { forwardRef, useImperativeHandle, useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
@@ -111,33 +111,31 @@ float cnoise(vec3 P){
 }
 `;
 
-function createStackedPlanesBufferGeometry(n, width, height, spacing, heightSegments) {
+// A single beam's plane geometry — its own random UV offset keeps its
+// noise pattern out of sync with its neighbors, now that each beam is an
+// independent object rather than a strip baked into one shared mesh.
+function createSingleBeamGeometry(width, height, heightSegments) {
   const geometry = new THREE.BufferGeometry();
-  const numVertices = n * (heightSegments + 1) * 2;
-  const numFaces = n * heightSegments * 2;
+  const numVertices = (heightSegments + 1) * 2;
+  const numFaces = heightSegments * 2;
   const positions = new Float32Array(numVertices * 3);
   const indices = new Uint32Array(numFaces * 3);
   const uvs = new Float32Array(numVertices * 2);
+  const uvXOffset = Math.random() * 300;
+  const uvYOffset = Math.random() * 300;
   let vertexOffset = 0, indexOffset = 0, uvOffset = 0;
-  const totalWidth = n * width + (n - 1) * spacing;
-  const xOffsetBase = -totalWidth / 2;
-  for (let i = 0; i < n; i++) {
-    const xOffset = xOffsetBase + i * (width + spacing);
-    const uvXOffset = Math.random() * 300;
-    const uvYOffset = Math.random() * 300;
-    for (let j = 0; j <= heightSegments; j++) {
-      const y = height * (j / heightSegments - 0.5);
-      positions.set([xOffset, y, 0, xOffset + width, y, 0], vertexOffset * 3);
-      const uvY = j / heightSegments;
-      uvs.set([uvXOffset, uvY + uvYOffset, uvXOffset + 1, uvY + uvYOffset], uvOffset);
-      if (j < heightSegments) {
-        const a = vertexOffset, b = vertexOffset + 1, c = vertexOffset + 2, d = vertexOffset + 3;
-        indices.set([a, b, c, c, b, d], indexOffset);
-        indexOffset += 6;
-      }
-      vertexOffset += 2;
-      uvOffset += 4;
+  for (let j = 0; j <= heightSegments; j++) {
+    const y = height * (j / heightSegments - 0.5);
+    positions.set([-width / 2, y, 0, width / 2, y, 0], vertexOffset * 3);
+    const uvY = j / heightSegments;
+    uvs.set([uvXOffset, uvY + uvYOffset, uvXOffset + 1, uvY + uvYOffset], uvOffset);
+    if (j < heightSegments) {
+      const a = vertexOffset, b = vertexOffset + 1, c = vertexOffset + 2, d = vertexOffset + 3;
+      indices.set([a, b, c, c, b, d], indexOffset);
+      indexOffset += 6;
     }
+    vertexOffset += 2;
+    uvOffset += 4;
   }
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   geometry.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
@@ -146,94 +144,129 @@ function createStackedPlanesBufferGeometry(n, width, height, spacing, heightSegm
   return geometry;
 }
 
-const MergedPlanes = forwardRef(({ material, width, count, height, baseNoise, baseScale }, ref) => {
-  const mesh = useRef(null);
-  useImperativeHandle(ref, () => mesh.current);
-  const geometry = useMemo(
-    () => createStackedPlanesBufferGeometry(count, width, height, 0, 100),
-    [count, width, height]
+const TWO_PI = Math.PI * 2;
+function shortestAngleLerp(from, to, t) {
+  let delta = (to - from) % TWO_PI;
+  if (delta > Math.PI) delta -= TWO_PI;
+  if (delta < -Math.PI) delta += TWO_PI;
+  return from + delta * t;
+}
+
+// Idle: every beam sits back-to-back in its original stacked line, at a
+// single fixed angle, with just the shader's own gentle up/down noise
+// motion — the exact original look. Active (chat open): the beams
+// un-stack — each one eases away from its neighbors out onto its own spot
+// on a circle around the center, spinning slowly and breathing in and out
+// (driven by the music) so they periodically drift apart into a full
+// sunburst and gather back together into the original line before
+// spreading out again. Easing back to the stacked idle line when the
+// chat closes.
+const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material }) => {
+  const refs = useRef([]);
+  const ambientRef = useRef(null);
+  const appliedSpread = useRef(0);
+
+  const idleXOffsets = useMemo(() => {
+    const totalWidth = beamNumber * beamWidth;
+    const xOffsetBase = -totalWidth / 2 + beamWidth / 2;
+    return Array.from({ length: beamNumber }, (_, i) => xOffsetBase + i * beamWidth);
+  }, [beamNumber, beamWidth]);
+
+  const ringPhase = useMemo(
+    () => Array.from({ length: beamNumber }, (_, i) => (i / beamNumber) * TWO_PI),
+    [beamNumber]
   );
-  useFrame((_, delta) => {
+
+  const geometries = useMemo(
+    () => idleXOffsets.map(() => createSingleBeamGeometry(beamWidth, beamHeight, 100)),
+    [idleXOffsets, beamWidth, beamHeight]
+  );
+
+  useFrame((state, delta) => {
     const level = audioLevel.current;
     const bass = audioBass.current;
     const treble = audioTreble.current;
     const beat = audioBeat.current;
-    const u = mesh.current.material.uniforms;
-    // Idle (no music): every term is 0, so this collapses back to the
-    // original constant-speed, constant-noise, dead-ahead flow. Kept
-    // deliberately gentle — a smooth sway rather than a buzzy pulse.
+
+    // Shared shader uniforms — one update drives every beam, since they
+    // all reference the same material, so they stay visually "together"
+    // even while spread apart in space.
+    const u = material.uniforms;
     u.time.value += 0.1 * delta * (1 + level * 0.7 + beat * 0.35);
-    u.uNoiseIntensity.value = baseNoise * (1 + level * 0.35 + beat * 0.4);
-    u.uScale.value = baseScale * (1 + beat * 0.12 - bass * 0.04);
+    u.uNoiseIntensity.value = material.userData.baseNoise * (1 + level * 0.35 + beat * 0.4);
+    u.uScale.value = material.userData.baseScale * (1 + beat * 0.12 - bass * 0.04);
     u.uFlowSkew.value = treble * 0.45 + bass * 0.15;
     u.uDisperse.value = beat * 0.5;
 
-    // Briefly dip opacity right as the chat opens, so the ripple burst
-    // shows through the beams like a raindrop hitting water, then ease
-    // back to fully opaque as the beams settle into their swinging
-    // active motion. Idle / already-settled: stays fully opaque.
     let opacity = 1;
+    let spreadTarget = 0;
     if (wavesActive.current) {
       const elapsed = performance.now() - activatedAt.current;
+      // Briefly dip opacity right as the chat opens, so the ripple burst
+      // shows through the beams like a raindrop hitting water.
       const x = elapsed / 900;
       const impulse = x * Math.exp(1 - x);
       opacity = 1 - impulse * 0.75;
+
+      // Ease the un-stacking outward, then keep breathing between a wide
+      // sunburst and (almost) back together, on a slow, music-nudged cycle.
+      const easeIn = Math.min(1, elapsed / 2500);
+      const breatheElapsed = Math.max(0, elapsed - 2500);
+      const breathe = 0.5 + 0.5 * Math.sin(breatheElapsed * 0.00035 + bass * 0.6);
+      spreadTarget = easeIn * (0.4 + 0.6 * breathe);
     }
     if (u.opacity) u.opacity.value = opacity;
-  });
-  return <mesh ref={mesh} geometry={geometry} material={material} />;
-});
-MergedPlanes.displayName = 'MergedPlanes';
 
-const PlaneNoise = forwardRef((props, ref) => (
-  <MergedPlanes
-    ref={ref}
-    material={props.material}
-    width={props.width}
-    count={props.count}
-    height={props.height}
-    baseNoise={props.baseNoise}
-    baseScale={props.baseScale}
-  />
-));
-PlaneNoise.displayName = 'PlaneNoise';
+    appliedSpread.current += (spreadTarget - appliedSpread.current) * 0.02;
+    const spread = appliedSpread.current;
 
-// Idle: holds a single static angle with just the shader's own gentle
-// up/down noise motion — the original look. Active (chat open): swings
-// the flow through a wide, ever-changing range of angles — left, right,
-// steep, shallow — easing in smoothly from the moment it's triggered
-// rather than jumping straight into the swing, and easing back to the
-// static angle when the chat closes. Also keeps the whole field scaled
-// up just enough to fully cover the viewport at any rotation angle.
-const DriftingGroup = ({ baseRotation, beamWidth, beamNumber, beamHeight, children }) => {
-  const group = useRef(null);
-  const applied = useRef(degToRad(baseRotation));
-  useFrame((state) => {
-    if (!group.current) return;
-    const base = degToRad(baseRotation);
-    let target = base;
-    if (wavesActive.current) {
-      const elapsed = performance.now() - activatedAt.current;
-      const easeIn = Math.min(1, elapsed / 4000);
-      const treble = audioTreble.current;
-      const bass = audioBass.current;
-      const drift =
-        (Math.sin(elapsed * 0.00007) * 1.05 +
-          Math.sin(elapsed * 0.000023 + 1.7) * 0.85 +
-          (treble - bass) * 0.4) *
-        easeIn;
-      target = base + drift;
-    }
-    applied.current += (target - applied.current) * 0.02;
-    group.current.rotation.z = applied.current;
+    // Once the beams un-stack they scatter across many different facing
+    // angles, so a mostly-directional lighting setup that reads fine on
+    // one packed, fixed-angle line would leave a lot of them nearly
+    // invisible. Lift the ambient floor while spread out so every beam
+    // stays visible regardless of which way it's facing.
+    if (ambientRef.current) ambientRef.current.intensity = 1 + spread * 1.6;
 
-    const footprintHalf = Math.min(beamNumber * beamWidth, beamHeight) / 2;
+    const baseRad = degToRad(baseRotation);
+    const cosB = Math.cos(baseRad);
+    const sinB = Math.sin(baseRad);
+
     const { width, height } = state.viewport;
     const viewportHalfDiag = Math.sqrt((width / 2) ** 2 + (height / 2) ** 2);
-    const targetScale = Math.max(1, (viewportHalfDiag * 1.3) / footprintHalf);
-    group.current.scale.setScalar(targetScale);
+    const orbitRadius = viewportHalfDiag * 0.75;
+
+    const t = performance.now();
+    const spin = t * 0.00006;
+
+    for (let i = 0; i < beamNumber; i++) {
+      const mesh = refs.current[i];
+      if (!mesh) continue;
+
+      const ix = idleXOffsets[i];
+      const idleX = ix * cosB;
+      const idleY = ix * sinB;
+
+      const angle = ringPhase[i] + spin + (treble - bass) * 0.15;
+      const radiusWobble = 0.85 + 0.15 * Math.sin(angle * 2 + t * 0.0004);
+      const radius = orbitRadius * radiusWobble;
+      const circleX = Math.cos(angle) * radius;
+      const circleY = Math.sin(angle) * radius;
+      const circleRot = angle - Math.PI / 2;
+
+      mesh.position.x = idleX + (circleX - idleX) * spread;
+      mesh.position.y = idleY + (circleY - idleY) * spread;
+      mesh.rotation.z = shortestAngleLerp(baseRad, circleRot, spread);
+    }
   });
-  return <group ref={group}>{children}</group>;
+
+  return (
+    <>
+      <ambientLight ref={ambientRef} intensity={1} />
+      {geometries.map((geo, i) => (
+        <mesh key={i} ref={(el) => { refs.current[i] = el; }} geometry={geo} material={material} />
+      ))}
+    </>
+  );
 };
 
 // A ring of light that breathes outward from a point that itself drifts
@@ -329,16 +362,8 @@ const RippleField = ({ color }) => {
 
 const DirLight = ({ position, color }) => {
   const dir = useRef(null);
-  const target = useRef(null);
   useEffect(() => {
     if (!dir.current) return;
-    // Point the light at a target that's parented in the same rotating
-    // group (rather than Three's default world-origin target), so the
-    // light's angle relative to the beams stays constant as the group
-    // rotates — otherwise the light effectively sweeps independently of
-    // the mesh and swings large areas into near-total darkness at some
-    // rotation angles.
-    if (target.current) dir.current.target = target.current;
     const cam = dir.current.shadow.camera;
     if (!cam) return;
     cam.top = 24; cam.bottom = -24;
@@ -346,12 +371,7 @@ const DirLight = ({ position, color }) => {
     cam.far = 64;
     dir.current.shadow.bias = -0.004;
   }, []);
-  return (
-    <>
-      <directionalLight ref={dir} color={color} intensity={1} position={position} />
-      <object3D ref={target} position={[0, 0, 0]} />
-    </>
-  );
+  return <directionalLight ref={dir} color={color} intensity={1} position={position} />;
 };
 
 export default function Beams({
@@ -364,7 +384,6 @@ export default function Beams({
   scale = 0.2,
   rotation = 0,
 }) {
-  const meshRef = useRef(null);
   const beamMaterial = useMemo(
     () => {
       const material = extendMaterial(THREE.MeshStandardMaterial, {
@@ -423,6 +442,8 @@ export default function Beams({
         },
       });
       material.transparent = true;
+      material.userData.baseNoise = noiseIntensity;
+      material.userData.baseScale = scale;
       return material;
     },
     [speed, noiseIntensity, scale]
@@ -431,11 +452,15 @@ export default function Beams({
   return (
     <CanvasWrapper>
       <RippleField color={lightColor} />
-      <DriftingGroup baseRotation={rotation} beamWidth={beamWidth} beamNumber={beamNumber} beamHeight={beamHeight}>
-        <PlaneNoise ref={meshRef} material={beamMaterial} count={beamNumber} width={beamWidth} height={beamHeight} baseNoise={noiseIntensity} baseScale={scale} />
-        <DirLight color={lightColor} position={[0, 3, 10]} />
-      </DriftingGroup>
-      <ambientLight intensity={1} />
+      <BeamsField
+        baseRotation={rotation}
+        beamWidth={beamWidth}
+        beamNumber={beamNumber}
+        beamHeight={beamHeight}
+        material={beamMaterial}
+      />
+      <DirLight color={lightColor} position={[0, 3, 10]} />
+      <DirLight color={lightColor} position={[6, -4, 8]} />
       <color attach="background" args={['#000000']} />
       <PerspectiveCamera makeDefault position={[0, 0, 20]} fov={30} />
     </CanvasWrapper>
