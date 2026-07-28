@@ -166,7 +166,7 @@ const EDUCATION = [
     degree: 'BSc in Computer Science & Artificial Intelligence',
     school: 'Vistula University',
     location: 'Warsaw, Poland',
-    gpa: 'GPA 3.92 / 4.0',
+    gpa: 'GPA 3.93 / 4.0',
   },
   {
     year: '2021 – 2026',

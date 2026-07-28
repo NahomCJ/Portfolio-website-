@@ -358,10 +358,10 @@ a.exp-co:hover { text-decoration: underline; text-underline-offset: 2px; }
 
 .edu-logo {
   position: absolute;
-  top: 14px;
-  right: 16px;
+  top: 18px;
+  right: 18px;
   width: auto;
-  height: 48px;
+  height: 32px;
   object-fit: contain;
   mix-blend-mode: multiply;
 }
