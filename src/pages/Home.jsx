@@ -159,7 +159,7 @@ const EDUCATION = [
     school: 'New York University',
     location: 'New York, United States',
     note: 'Incoming fall transfer',
-    logo: '/nyu-logo.svg',
+    logo: '/nyu-logo.png',
   },
   {
     year: '2024 – 2027',
