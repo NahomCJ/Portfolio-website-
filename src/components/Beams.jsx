@@ -185,24 +185,32 @@ const PlaneNoise = forwardRef((props, ref) => (
 ));
 PlaneNoise.displayName = 'PlaneNoise';
 
-// Slowly rotates the beam group so the flow direction drifts over the
-// course of a couple of minutes instead of always running the same way
-// on the same plane, nudged a little further by the music's tone.
+// Swings the beam group's flow direction through a wide, ever-changing
+// range of angles — left, right, steep, shallow — instead of holding
+// one fixed line. Two sine waves at different (slow) periods keep the
+// motion smooth and non-repeating for several minutes, and the music's
+// tone gives it a little extra push either way.
 const DriftingGroup = ({ baseRotation, children }) => {
   const group = useRef(null);
   useFrame(() => {
     if (!group.current) return;
     const treble = audioTreble.current;
     const bass = audioBass.current;
-    const drift = Math.sin(performance.now() * 0.00004) * 0.18 + (treble - bass) * 0.3;
+    const t = performance.now();
+    const drift =
+      Math.sin(t * 0.00007) * 1.05 +
+      Math.sin(t * 0.000023 + 1.7) * 0.85 +
+      (treble - bass) * 0.4;
     group.current.rotation.z = degToRad(baseRotation) + drift;
   });
   return <group ref={group}>{children}</group>;
 };
 
-// A soft, continuous ring of light that breathes outward from center —
-// the "ripple / bubble" accent layered behind the beams. Very faint at
-// rest, it blooms gently on bass hits.
+// A ring of light that breathes outward from a point that itself drifts
+// left/right over time — the "water ripple / bubble" layer behind the
+// beams. Two overlapping wave fronts (different frequency/speed) give it
+// an organic, layered ripple texture rather than one clean ring, and it
+// blooms brighter on bass hits.
 const rippleVertexShader = `
 varying vec2 vUv;
 void main() {
@@ -215,15 +223,17 @@ varying vec2 vUv;
 uniform float uTime;
 uniform float uBeat;
 uniform float uBass;
+uniform float uCenterX;
 uniform vec3 uColor;
 void main() {
-  vec2 center = vec2(0.5, 0.5);
+  vec2 center = vec2(uCenterX, 0.5);
   float dist = distance(vUv, center);
-  float speed = 0.35 + uBass * 0.5;
-  float wave = 0.5 + 0.5 * sin(dist * 16.0 - uTime * speed);
-  float glow = pow(wave, 5.0);
-  float fade = smoothstep(0.9, 0.05, dist);
-  float amp = (0.05 + uBeat * 0.32) * fade;
+  float speed = 0.4 + uBass * 0.6;
+  float wave1 = 0.5 + 0.5 * sin(dist * 16.0 - uTime * speed);
+  float wave2 = 0.5 + 0.5 * sin(dist * 27.0 - uTime * speed * 1.4 + 1.2);
+  float glow = pow(wave1, 5.0) * 0.7 + pow(wave2, 6.0) * 0.5;
+  float fade = smoothstep(0.95, 0.05, dist);
+  float amp = (0.12 + uBeat * 0.45) * fade;
   gl_FragColor = vec4(uColor, glow * amp);
 }`;
 
@@ -235,6 +245,7 @@ const RippleField = ({ color }) => {
       uTime: { value: 0 },
       uBeat: { value: 0 },
       uBass: { value: 0 },
+      uCenterX: { value: 0.5 },
       uColor: { value: new THREE.Color(rgb[0], rgb[1], rgb[2]) },
     }),
     [rgb]
@@ -242,9 +253,11 @@ const RippleField = ({ color }) => {
 
   useFrame((_, delta) => {
     if (!materialRef.current) return;
-    materialRef.current.uniforms.uTime.value += delta;
-    materialRef.current.uniforms.uBeat.value = audioBeat.current;
-    materialRef.current.uniforms.uBass.value = audioBass.current;
+    const u = materialRef.current.uniforms;
+    u.uTime.value += delta;
+    u.uBeat.value = audioBeat.current;
+    u.uBass.value = audioBass.current;
+    u.uCenterX.value = 0.5 + Math.sin(performance.now() * 0.00005 + 0.6) * 0.32;
   });
 
   return (
