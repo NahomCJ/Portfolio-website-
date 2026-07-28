@@ -16,6 +16,20 @@ export const audioBass = { current: 0 };
 export const audioTreble = { current: 0 };
 export const audioBeat = { current: 0 };
 
+// Whether the hero waves should be in their "active" (chat open) mode —
+// swinging through wide angles and rippling — versus the calm, static
+// "idle" look. `activatedAt` records when it last turned on, so Beams.jsx
+// can play a one-off ripple-burst intro timed from that moment.
+export const wavesActive = { current: false };
+export const activatedAt = { current: 0 };
+
+export function setWavesActive(active) {
+  if (active && !wavesActive.current) {
+    activatedAt.current = performance.now();
+  }
+  wavesActive.current = active;
+}
+
 let analyser;
 let dataArray;
 
