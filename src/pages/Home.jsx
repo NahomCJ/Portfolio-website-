@@ -176,7 +176,7 @@ const EDUCATION = [
     gpa: 'GPA 3.5 / 4.0',
   },
   {
-    year: '2016 – 2020',
+    year: '2016 – 2021',
     degree: 'High School Diploma',
     school: 'Sunny Side Educational Institute',
     location: 'Addis Ababa, Ethiopia',
@@ -331,7 +331,7 @@ export default function Home() {
     <>
       {/* ── HERO ── */}
       <section id="hero">
-        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#6D28D9" speed={2} noiseIntensity={1.05} scale={0.2} rotation={-30} />
+        <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#6D28D9" speed={2} noiseIntensity={1.05} scale={0.2} rotation={-30} reactive />
         <div className="container">
           <div className="hero-inner">
             <div className="hero-img-wrap">

@@ -152,16 +152,26 @@ function shortestAngleLerp(from, to, t) {
   return from + delta * t;
 }
 
+// Golden-angle-ish per-beam phase offset so the length-pulse animation
+// below doesn't line every beam up in lockstep like piano keys — each
+// one breathes slightly out of sync with its neighbors.
+const PHASE_STEP = 2.399963229728653;
+
 // Idle: every beam sits back-to-back in its original stacked line, at a
 // single fixed angle, with just the shader's own gentle up/down noise
-// motion — the exact original look. Active (chat open): the beams
-// un-stack — each one eases away from its neighbors out onto its own spot
-// on a circle around the center, spinning slowly and breathing in and out
-// (driven by the music) so they periodically drift apart into a full
-// sunburst and gather back together into the original line before
-// spreading out again. Easing back to the stacked idle line when the
-// chat closes.
-const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material }) => {
+// motion — the exact original look. Active (chat open, `reactive` only):
+// the beams un-stack — each one eases away from its neighbors out onto
+// its own spot on a circle around the center, spinning slowly, and
+// individually growing/shrinking in length on a music-driven pulse (so
+// they read as loose reeds swaying with the track rather than rigid
+// piano keys), so they periodically drift apart into a full sunburst and
+// gather back together into the original line before spreading out
+// again. A small fixed gap around the center keeps the beams from
+// bunching into a cluttered knot where they'd otherwise all converge.
+// Easing back to the stacked idle line when the chat closes. Non-reactive
+// instances (about/footer) ignore all of this and just hold the original
+// static idle look permanently.
+const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material, reactive }) => {
   const refs = useRef([]);
   const ambientRef = useRef(null);
   const appliedSpread = useRef(0);
@@ -183,6 +193,34 @@ const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material 
   );
 
   useFrame((state, delta) => {
+    const u = material.uniforms;
+
+    if (!reactive) {
+      // The original, pre-music-reactive look: constant speed, constant
+      // noise/scale, dead-ahead flow, fully opaque, beams permanently in
+      // their packed idle line.
+      u.time.value += 0.1 * delta;
+      u.uNoiseIntensity.value = material.userData.baseNoise;
+      u.uScale.value = material.userData.baseScale;
+      u.uFlowSkew.value = 0;
+      u.uDisperse.value = 0;
+      if (u.opacity) u.opacity.value = 1;
+
+      const baseRad = degToRad(baseRotation);
+      const cosB = Math.cos(baseRad);
+      const sinB = Math.sin(baseRad);
+      for (let i = 0; i < beamNumber; i++) {
+        const mesh = refs.current[i];
+        if (!mesh) continue;
+        const ix = idleXOffsets[i];
+        mesh.position.x = ix * cosB;
+        mesh.position.y = ix * sinB;
+        mesh.rotation.z = baseRad;
+        mesh.scale.y = 1;
+      }
+      return;
+    }
+
     const level = audioLevel.current;
     const bass = audioBass.current;
     const treble = audioTreble.current;
@@ -191,7 +229,6 @@ const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material 
     // Shared shader uniforms — one update drives every beam, since they
     // all reference the same material, so they stay visually "together"
     // even while spread apart in space.
-    const u = material.uniforms;
     u.time.value += 0.1 * delta * (1 + level * 0.7 + beat * 0.35);
     u.uNoiseIntensity.value = material.userData.baseNoise * (1 + level * 0.35 + beat * 0.4);
     u.uScale.value = material.userData.baseScale * (1 + beat * 0.12 - bass * 0.04);
@@ -233,7 +270,10 @@ const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material 
 
     const { width, height } = state.viewport;
     const viewportHalfDiag = Math.sqrt((width / 2) ** 2 + (height / 2) ** 2);
-    const orbitRadius = viewportHalfDiag * 0.75;
+    // A small fixed core radius every beam's inner tip anchors to, so
+    // spreading beams radiate cleanly outward from a tidy empty center
+    // instead of piling up into a cluttered knot in the middle.
+    const innerRadius = viewportHalfDiag * 0.14;
 
     const t = performance.now();
     const spin = t * 0.00006;
@@ -246,16 +286,24 @@ const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material 
       const idleX = ix * cosB;
       const idleY = ix * sinB;
 
+      // Each beam grows and shrinks independently — driven mostly by the
+      // music (loudness/beat/treble) with a per-beam phase so they don't
+      // all pulse in unison — instead of holding one rigid length.
+      const wobble = 0.5 + 0.5 * Math.sin(t * 0.0016 + i * PHASE_STEP);
+      const musicPulse = level * 0.55 + beat * 0.75 + treble * 0.25;
+      const lengthScale = Math.min(1.6, Math.max(0.4, 0.55 + wobble * 0.3 + musicPulse * 0.55));
+
       const angle = ringPhase[i] + spin + (treble - bass) * 0.15;
-      const radiusWobble = 0.85 + 0.15 * Math.sin(angle * 2 + t * 0.0004);
-      const radius = orbitRadius * radiusWobble;
-      const circleX = Math.cos(angle) * radius;
-      const circleY = Math.sin(angle) * radius;
+      const beamHalfLen = (beamHeight * lengthScale) / 2;
+      const centerDist = innerRadius + beamHalfLen;
+      const circleX = Math.cos(angle) * centerDist;
+      const circleY = Math.sin(angle) * centerDist;
       const circleRot = angle - Math.PI / 2;
 
       mesh.position.x = idleX + (circleX - idleX) * spread;
       mesh.position.y = idleY + (circleY - idleY) * spread;
       mesh.rotation.z = shortestAngleLerp(baseRad, circleRot, spread);
+      mesh.scale.y = 1 + (lengthScale - 1) * spread;
     }
   });
 
@@ -383,6 +431,7 @@ export default function Beams({
   noiseIntensity = 1.75,
   scale = 0.2,
   rotation = 0,
+  reactive = false,
 }) {
   const beamMaterial = useMemo(
     () => {
@@ -451,13 +500,14 @@ export default function Beams({
 
   return (
     <CanvasWrapper>
-      <RippleField color={lightColor} />
+      {reactive && <RippleField color={lightColor} />}
       <BeamsField
         baseRotation={rotation}
         beamWidth={beamWidth}
         beamNumber={beamNumber}
         beamHeight={beamHeight}
         material={beamMaterial}
+        reactive={reactive}
       />
       <DirLight color={lightColor} position={[0, 3, 10]} />
       <DirLight color={lightColor} position={[6, -4, 8]} />
