@@ -115,13 +115,23 @@ float cnoise(vec3 P){
 // A single beam's plane geometry — its own random UV offset keeps its
 // noise pattern out of sync with its neighbors, now that each beam is an
 // independent object rather than a strip baked into one shared mesh.
-function createSingleBeamGeometry(width, height, heightSegments) {
+// `aBendSeed` is a constant-per-geometry attribute (same value on every
+// vertex of one beam, different per beam) so the shared material's bend
+// shader can curve each beam along its own distinct phase instead of
+// every beam bowing in perfect unison.
+function createSingleBeamGeometry(width, height, heightSegments, bendSeed) {
   const geometry = new THREE.BufferGeometry();
   const numVertices = (heightSegments + 1) * 2;
   const numFaces = heightSegments * 2;
   const positions = new Float32Array(numVertices * 3);
   const indices = new Uint32Array(numFaces * 3);
   const uvs = new Float32Array(numVertices * 2);
+  const bendSeeds = new Float32Array(numVertices);
+  // Clean 0..1 fraction along the strand's length — kept separate from
+  // `uv`, whose Y already carries a large per-beam random offset used to
+  // desync the noise pattern, which would otherwise throw off the bend
+  // shape's "zero at both ends" assumption.
+  const lenUs = new Float32Array(numVertices);
   const uvXOffset = Math.random() * 300;
   const uvYOffset = Math.random() * 300;
   let vertexOffset = 0, indexOffset = 0, uvOffset = 0;
@@ -130,6 +140,10 @@ function createSingleBeamGeometry(width, height, heightSegments) {
     positions.set([-width / 2, y, 0, width / 2, y, 0], vertexOffset * 3);
     const uvY = j / heightSegments;
     uvs.set([uvXOffset, uvY + uvYOffset, uvXOffset + 1, uvY + uvYOffset], uvOffset);
+    bendSeeds[vertexOffset] = bendSeed;
+    bendSeeds[vertexOffset + 1] = bendSeed;
+    lenUs[vertexOffset] = uvY;
+    lenUs[vertexOffset + 1] = uvY;
     if (j < heightSegments) {
       const a = vertexOffset, b = vertexOffset + 1, c = vertexOffset + 2, d = vertexOffset + 3;
       indices.set([a, b, c, c, b, d], indexOffset);
@@ -140,6 +154,8 @@ function createSingleBeamGeometry(width, height, heightSegments) {
   }
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   geometry.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+  geometry.setAttribute('aBendSeed', new THREE.BufferAttribute(bendSeeds, 1));
+  geometry.setAttribute('aLenU', new THREE.BufferAttribute(lenUs, 1));
   geometry.setIndex(new THREE.BufferAttribute(indices, 1));
   geometry.computeVertexNormals();
   return geometry;
@@ -189,7 +205,7 @@ const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material,
   );
 
   const geometries = useMemo(
-    () => idleXOffsets.map(() => createSingleBeamGeometry(beamWidth, beamHeight, 100)),
+    () => idleXOffsets.map((_, i) => createSingleBeamGeometry(beamWidth, beamHeight, 100, i * PHASE_STEP)),
     [idleXOffsets, beamWidth, beamHeight]
   );
 
@@ -205,6 +221,7 @@ const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material,
       u.uScale.value = material.userData.baseScale;
       u.uFlowSkew.value = 0;
       u.uDisperse.value = 0;
+      u.uBendAmp.value = 0;
       if (u.opacity) u.opacity.value = 1;
 
       const baseRad = degToRad(baseRotation);
@@ -257,6 +274,11 @@ const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material,
 
     appliedSpread.current += (spreadTarget - appliedSpread.current) * 0.02;
     const spread = appliedSpread.current;
+
+    // Curve each strand along its own length once it un-stacks — an
+    // ocean-wave bend rather than a rigid rotating rod — growing bolder
+    // with the music and easing back to perfectly straight at idle.
+    u.uBendAmp.value = spread * (0.9 + level * 1.6 + beat * 1.2);
 
     // Once the beams un-stack they scatter across many different facing
     // angles, so a mostly-directional lighting setup that reads fine on
@@ -453,15 +475,32 @@ export default function Beams({
   uniform float uScale;
   uniform float uFlowSkew;
   uniform float uDisperse;
+  uniform float uBendAmp;
   ${noise}`,
         vertexHeader: `
+  attribute float aBendSeed;
+  attribute float aLenU;
+  // Bends the strand along its own length instead of leaving it a rigid
+  // rod — an arch toward the middle plus a slower undulation, phased
+  // per-beam via aBendSeed so a whole spread field curves like loose
+  // ocean-wave strands rather than a fan of straight sticks. aLenU is a
+  // clean 0..1 fraction along the strand (unlike uv.y, which carries a
+  // large per-beam random offset for noise variety).
+  float getBend(vec3 pos) {
+    float u = aLenU;
+    float arch = sin(u * 3.14159265) * 0.6;
+    float wave = sin(u * 3.0 + aBendSeed + time * 0.6) * 0.5
+               + sin(u * 5.0 - aBendSeed * 1.7 + time * 0.35) * 0.35;
+    return (arch + wave) * uBendAmp;
+  }
   float getPos(vec3 pos) {
     vec3 noisePos = vec3(pos.x * uFlowSkew, pos.y - uv.y, pos.z + time * uSpeed * 3.) * uScale;
     return cnoise(noisePos) * (1.0 + uDisperse * 0.6);
   }
   vec3 getCurrentPos(vec3 pos) {
     vec3 newpos = pos;
-    newpos.z += getPos(pos);
+    newpos.x += getBend(pos);
+    newpos.z += getPos(newpos);
     return newpos;
   }
   vec3 getNormal(vec3 pos) {
@@ -474,7 +513,9 @@ export default function Beams({
   }`,
         fragmentHeader: '',
         vertex: {
-          '#include <begin_vertex>': `transformed.z += getPos(transformed.xyz);`,
+          '#include <begin_vertex>': `
+    transformed.x += getBend(transformed.xyz);
+    transformed.z += getPos(transformed.xyz);`,
           '#include <beginnormal_vertex>': `objectNormal = getNormal(position.xyz);`,
         },
         fragment: {
@@ -494,6 +535,7 @@ export default function Beams({
           uScale: scale,
           uFlowSkew: 0,
           uDisperse: 0,
+          uBendAmp: 0,
         },
       });
       material.transparent = true;
