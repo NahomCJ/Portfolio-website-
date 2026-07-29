@@ -5,6 +5,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
 import { degToRad } from 'three/src/math/MathUtils.js';
 import { audioLevel, audioBass, audioTreble, audioBeat, wavesActive, activatedAt } from '../lib/audioReactivity';
+import { heroFocus } from '../lib/heroFocus';
 import './Beams.css';
 
 function extendMaterial(BaseMaterial, cfg) {
@@ -274,6 +275,11 @@ const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material,
     // spreading beams radiate cleanly outward from a tidy empty center
     // instead of piling up into a cluttered knot in the middle.
     const innerRadius = viewportHalfDiag * 0.14;
+    // Center the circle formation behind the profile photo rather than
+    // at the raw canvas center, so the spread reads as radiating out
+    // from behind it instead of sitting in empty space next to it.
+    const focusX = (heroFocus.x - 0.5) * width;
+    const focusY = (0.5 - heroFocus.y) * height;
 
     const t = performance.now();
     const spin = t * 0.00006;
@@ -296,8 +302,8 @@ const BeamsField = ({ baseRotation, beamWidth, beamNumber, beamHeight, material,
       const angle = ringPhase[i] + spin + (treble - bass) * 0.15;
       const beamHalfLen = (beamHeight * lengthScale) / 2;
       const centerDist = innerRadius + beamHalfLen;
-      const circleX = Math.cos(angle) * centerDist;
-      const circleY = Math.sin(angle) * centerDist;
+      const circleX = focusX + Math.cos(angle) * centerDist;
+      const circleY = focusY + Math.sin(angle) * centerDist;
       const circleRot = angle - Math.PI / 2;
 
       mesh.position.x = idleX + (circleX - idleX) * spread;

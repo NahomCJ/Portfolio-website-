@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Beams from '../components/Beams';
 import TechLoop from '../components/TechLoop';
 import Dock from '../components/Dock';
+import { heroFocus } from '../lib/heroFocus';
 import './Home.css';
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -278,6 +279,31 @@ const IconGlobe = () => (
 
 export default function Home() {
   const navigate = useNavigate();
+  const heroSectionRef = useRef(null);
+  const heroImgRef = useRef(null);
+
+  useEffect(() => {
+    const section = heroSectionRef.current;
+    const img = heroImgRef.current;
+    if (!section || !img) return undefined;
+
+    const updateHeroFocus = () => {
+      const c = section.getBoundingClientRect();
+      const t = img.getBoundingClientRect();
+      if (!c.width || !c.height) return;
+      heroFocus.x = (t.left + t.width / 2 - c.left) / c.width;
+      heroFocus.y = (t.top + t.height / 2 - c.top) / c.height;
+    };
+
+    updateHeroFocus();
+    window.addEventListener('resize', updateHeroFocus);
+    const ro = new ResizeObserver(updateHeroFocus);
+    ro.observe(section);
+    return () => {
+      window.removeEventListener('resize', updateHeroFocus);
+      ro.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const els = document.querySelectorAll('.js-fade');
@@ -330,11 +356,11 @@ export default function Home() {
   return (
     <>
       {/* ── HERO ── */}
-      <section id="hero">
+      <section id="hero" ref={heroSectionRef}>
         <Beams beamWidth={1.5} beamHeight={20} beamNumber={15} lightColor="#6D28D9" speed={2} noiseIntensity={1.05} scale={0.2} rotation={-30} reactive />
         <div className="container">
           <div className="hero-inner">
-            <div className="hero-img-wrap">
+            <div className="hero-img-wrap" ref={heroImgRef}>
               <img src="/photo.jpg" alt="Nahom Teklay" />
             </div>
             <div className="hero-text">
