@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Beams from '../components/Beams';
 import TechLoop from '../components/TechLoop';
 import Dock from '../components/Dock';
+import GutterSpillWaves from '../components/GutterSpillWaves';
 import { heroFocus } from '../lib/heroFocus';
 import './Home.css';
 
@@ -417,6 +418,8 @@ export default function Home() {
         </div>
       </section>
 
+      <GutterSpillWaves direction="down" spanStartSelector="#experience" spanEndSelector="#education" />
+
       {/* ── EXPERIENCE ── */}
       <section id="experience">
         <div className="container">
@@ -501,6 +504,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <GutterSpillWaves direction="up" spanStartSelector="#certificates" spanEndSelector="#certificates" />
 
       {/* ── CERTIFICATES ── */}
       <section id="certificates">
