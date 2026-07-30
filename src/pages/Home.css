@@ -14,7 +14,11 @@
 #contact { background: #000; }
 #hero .container,
 #about .container,
-#contact .container {
+#contact .container,
+#experience .container,
+#skills .container,
+#education .container,
+#certificates .container {
   position: relative;
   z-index: 1;
 }
