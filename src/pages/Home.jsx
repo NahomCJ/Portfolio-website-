@@ -530,8 +530,8 @@ export default function Home() {
               Open to engineering roles, collaborations, and anything at the intersection of
               AI, data, and mobile development.
             </p>
-            <a href="mailto:nahomteklay17@gmail.com" className="btn btn-white btn-lg">
-              <IconMail /> nahomteklay17@gmail.com
+            <a href="mailto:nahom@chronos-sf.com" className="btn btn-white btn-lg">
+              <IconMail /> nahom@chronos-sf.com
             </a>
             <div className="contact-links">
               <a
