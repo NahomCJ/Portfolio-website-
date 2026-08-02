@@ -361,7 +361,7 @@ export default function Home() {
         <div className="container">
           <div className="hero-inner">
             <div className="hero-img-wrap" ref={heroImgRef}>
-              <img src="/photo2.jpg" alt="Nahom Teklay" />
+              <img src="/photo.jpg" alt="Nahom Teklay" />
             </div>
             <div className="hero-text">
               <h1 className="hero-name">Nahom Teklay</h1>
