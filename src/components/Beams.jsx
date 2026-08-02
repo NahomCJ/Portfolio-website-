@@ -46,7 +46,7 @@ function extendMaterial(BaseMaterial, cfg) {
   });
 }
 
-export const CanvasWrapper = ({ children }) => (
+const CanvasWrapper = ({ children }) => (
   <Canvas dpr={[1, 2]} frameloop="always" className="beams-container">
     {children}
   </Canvas>
@@ -118,10 +118,8 @@ float cnoise(vec3 P){
 // `aBendSeed` is a constant-per-geometry attribute (same value on every
 // vertex of one beam, different per beam) so the shared material's bend
 // shader can curve each beam along its own distinct phase instead of
-// every beam bowing in perfect unison. Exported so other wave-effect
-// components (e.g. the tendrils spilling out of About/Contact) can build
-// on the same geometry/shader instead of duplicating it.
-export function createSingleBeamGeometry(width, height, heightSegments, bendSeed) {
+// every beam bowing in perfect unison.
+function createSingleBeamGeometry(width, height, heightSegments, bendSeed) {
   const geometry = new THREE.BufferGeometry();
   const numVertices = (heightSegments + 1) * 2;
   const numFaces = heightSegments * 2;
@@ -438,7 +436,7 @@ const RippleField = ({ color }) => {
   );
 };
 
-export const DirLight = ({ position, color }) => {
+const DirLight = ({ position, color }) => {
   const dir = useRef(null);
   useEffect(() => {
     if (!dir.current) return;
@@ -452,13 +450,21 @@ export const DirLight = ({ position, color }) => {
   return <directionalLight ref={dir} color={color} intensity={1} position={position} />;
 };
 
-// Builds the shared beam shader material (bendable, noise-displaced,
-// music-reactive-ready) — pulled out of the Beams component so other
-// wave-effect components (e.g. the About/Contact tendrils) can build
-// meshes using the exact same look without duplicating the shader.
-export function createBeamMaterial({ speed, noiseIntensity, scale }) {
-  const material = extendMaterial(THREE.MeshStandardMaterial, {
-    header: `
+export default function Beams({
+  beamWidth = 2,
+  beamHeight = 15,
+  beamNumber = 12,
+  lightColor = '#ffffff',
+  speed = 2,
+  noiseIntensity = 1.75,
+  scale = 0.2,
+  rotation = 0,
+  reactive = false,
+}) {
+  const beamMaterial = useMemo(
+    () => {
+      const material = extendMaterial(THREE.MeshStandardMaterial, {
+        header: `
   varying vec3 vEye;
   varying float vNoise;
   varying vec2 vUv;
@@ -470,9 +476,8 @@ export function createBeamMaterial({ speed, noiseIntensity, scale }) {
   uniform float uFlowSkew;
   uniform float uDisperse;
   uniform float uBendAmp;
-  uniform float uBendMode;
   ${noise}`,
-    vertexHeader: `
+        vertexHeader: `
   attribute float aBendSeed;
   attribute float aLenU;
   // Bends the strand along its own length instead of leaving it a rigid
@@ -483,13 +488,6 @@ export function createBeamMaterial({ speed, noiseIntensity, scale }) {
   // large per-beam random offset for noise variety).
   float getBend(vec3 pos) {
     float u = aLenU;
-    // Tendril mode: one graceful, single-frequency arc per strand — a
-    // smooth flowing curve rather than the busier multi-frequency weave
-    // below (which suits the hero's wide, chaotic sunburst but reads as
-    // jagged on a long, isolated strand meant to look like a calm ribbon).
-    if (uBendMode > 0.5) {
-      return sin(u * 3.14159265 * 1.3 + aBendSeed) * uBendAmp;
-    }
     float arch = sin(u * 3.14159265) * 0.6;
     float wave = sin(u * 3.0 + aBendSeed + time * 0.6) * 0.5
                + sin(u * 5.0 - aBendSeed * 1.7 + time * 0.35) * 0.35;
@@ -513,53 +511,38 @@ export function createBeamMaterial({ speed, noiseIntensity, scale }) {
     vec3 tangentZ = normalize(nextposZ - curpos);
     return normalize(cross(tangentZ, tangentX));
   }`,
-    fragmentHeader: '',
-    vertex: {
-      '#include <begin_vertex>': `
+        fragmentHeader: '',
+        vertex: {
+          '#include <begin_vertex>': `
     transformed.x += getBend(transformed.xyz);
     transformed.z += getPos(transformed.xyz);`,
-      '#include <beginnormal_vertex>': `objectNormal = getNormal(position.xyz);`,
-    },
-    fragment: {
-      '#include <dithering_fragment>': `
+          '#include <beginnormal_vertex>': `objectNormal = getNormal(position.xyz);`,
+        },
+        fragment: {
+          '#include <dithering_fragment>': `
     float randomNoise = noise(gl_FragCoord.xy);
     gl_FragColor.rgb -= randomNoise / 15. * uNoiseIntensity;`,
+        },
+        material: { fog: true },
+        uniforms: {
+          diffuse: new THREE.Color(...hexToNormalizedRGB('#000000')),
+          time: { value: 0 },
+          roughness: 0.3,
+          metalness: 0.3,
+          uSpeed: { value: speed },
+          envMapIntensity: 10,
+          uNoiseIntensity: noiseIntensity,
+          uScale: scale,
+          uFlowSkew: 0,
+          uDisperse: 0,
+          uBendAmp: 0,
+        },
+      });
+      material.transparent = true;
+      material.userData.baseNoise = noiseIntensity;
+      material.userData.baseScale = scale;
+      return material;
     },
-    material: { fog: true },
-    uniforms: {
-      diffuse: new THREE.Color(...hexToNormalizedRGB('#000000')),
-      time: { value: 0 },
-      roughness: 0.3,
-      metalness: 0.3,
-      uSpeed: { value: speed },
-      envMapIntensity: 10,
-      uNoiseIntensity: noiseIntensity,
-      uScale: scale,
-      uFlowSkew: 0,
-      uDisperse: 0,
-      uBendAmp: 0,
-      uBendMode: 0,
-    },
-  });
-  material.transparent = true;
-  material.userData.baseNoise = noiseIntensity;
-  material.userData.baseScale = scale;
-  return material;
-}
-
-export default function Beams({
-  beamWidth = 2,
-  beamHeight = 15,
-  beamNumber = 12,
-  lightColor = '#ffffff',
-  speed = 2,
-  noiseIntensity = 1.75,
-  scale = 0.2,
-  rotation = 0,
-  reactive = false,
-}) {
-  const beamMaterial = useMemo(
-    () => createBeamMaterial({ speed, noiseIntensity, scale }),
     [speed, noiseIntensity, scale]
   );
 
