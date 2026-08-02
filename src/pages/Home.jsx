@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Beams from '../components/Beams';
 import TechLoop from '../components/TechLoop';
 import Dock from '../components/Dock';
+import TendrilSpill from '../components/TendrilSpill';
 import { heroFocus } from '../lib/heroFocus';
 import './Home.css';
 
@@ -417,6 +418,8 @@ export default function Home() {
         </div>
       </section>
 
+      <TendrilSpill direction="down" spanStartSelector="#experience" spanEndSelector="#education" count={12} />
+
       {/* ── EXPERIENCE ── */}
       <section id="experience">
         <div className="container">
@@ -501,6 +504,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <TendrilSpill direction="up" spanStartSelector="#certificates" spanEndSelector="#certificates" count={9} />
 
       {/* ── CERTIFICATES ── */}
       <section id="certificates">
