@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import DarkVeil from '../components/DarkVeil';
-import HeroWind from '../components/HeroWind';
 import './Resume.css';
 
 export default function Resume() {
@@ -20,7 +19,6 @@ export default function Resume() {
             <div className="resume-header-left">
               <div className="resume-avatar">
                 <img src="/photo3.jpg" alt="Nahom Teklay" />
-                <HeroWind src="/photo3.jpg" />
               </div>
               <h2>My Resume</h2>
             </div>
