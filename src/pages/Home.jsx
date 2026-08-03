@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import Beams from '../components/Beams';
 import TechLoop from '../components/TechLoop';
 import Dock from '../components/Dock';
-import HeroWind from '../components/HeroWind';
 import { heroFocus } from '../lib/heroFocus';
 import './Home.css';
 
@@ -363,7 +362,6 @@ export default function Home() {
           <div className="hero-inner">
             <div className="hero-img-wrap" ref={heroImgRef}>
               <img src="/photo3.jpg" alt="Nahom Teklay" />
-              <HeroWind src="/photo3.jpg" />
             </div>
             <div className="hero-text">
               <h1 className="hero-name">Nahom Teklay</h1>
