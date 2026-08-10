@@ -1,7 +1,7 @@
 // ChrisHomeFab.jsx — animated strands orb FAB (no built-in sheet)
-// Calls onOpen() on tap or wake word "Hey Chris"
+// Calls onOpen() on tap
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 const TEAL = "#00D4B8";
@@ -133,80 +133,9 @@ function StrandsOrb({ size, pulseValue, speed }) {
 
 // ── Main FAB ───────────────────────────────────────────────────────────────────
 export default function ChrisHomeFab({ size = 56, onOpen }) {
-  const [wakeActive, setWakeActive] = useState(false);
-  const [respondingMode, setRespondingMode] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [glowPulse, setGlowPulse] = useState(0);
 
   const dragRef = useRef({ dragging: false, startX: 0, startY: 0, origX: 0, origY: 0 });
-  const recognitionRef = useRef(null);
-  const glowRafRef = useRef(null);
-  const glowStartRef = useRef(null);
-
-  useEffect(() => {
-    if (!wakeActive) {
-      setGlowPulse(0);
-      cancelAnimationFrame(glowRafRef.current);
-      return;
-    }
-    glowStartRef.current = null;
-    const animate = (ts) => {
-      if (!glowStartRef.current) glowStartRef.current = ts;
-      const elapsed = (ts - glowStartRef.current) / 1200;
-      const t = elapsed % 1;
-      const pulse = t < 0.5 ? t * 2 : (1 - t) * 2;
-      setGlowPulse(pulse);
-      glowRafRef.current = requestAnimationFrame(animate);
-    };
-    glowRafRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(glowRafRef.current);
-  }, [wakeActive]);
-
-  const startWakeWordListening = useCallback(() => {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) return;
-
-    const rec = new SpeechRecognition();
-    rec.continuous = true;
-    rec.interimResults = true;
-    recognitionRef.current = rec;
-    let triggered = false;
-
-    rec.onstart = () => setWakeActive(true);
-
-    rec.onresult = (e) => {
-      if (triggered) return;
-      const words = Array.from(e.results)
-        .map((r) => r[0].transcript)
-        .join(" ")
-        .toLowerCase();
-      if (words.includes("hey chris") || (words.startsWith("hey") && words.includes("chris"))) {
-        triggered = true;
-        rec.stop();
-        setRespondingMode(true);
-        onOpen?.();
-        setTimeout(() => setRespondingMode(false), 3000);
-      }
-    };
-
-    rec.onend = () => {
-      setWakeActive(false);
-      setTimeout(startWakeWordListening, 3000);
-    };
-
-    rec.onerror = () => {
-      setWakeActive(false);
-      setTimeout(startWakeWordListening, 5000);
-    };
-
-    try { rec.start(); } catch (_) {}
-  }, [onOpen]);
-
-  useEffect(() => {
-    startWakeWordListening();
-    return () => recognitionRef.current?.stop();
-  }, [startWakeWordListening]);
 
   const onPointerDown = (e) => {
     dragRef.current = {
@@ -250,11 +179,7 @@ export default function ChrisHomeFab({ size = 56, onOpen }) {
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
     >
-      <StrandsOrb
-        size={size}
-        pulseValue={wakeActive ? glowPulse : 0}
-        speed={respondingMode ? 0.45 : 0.07}
-      />
+      <StrandsOrb size={size} pulseValue={0} speed={0.07} />
     </div>
   );
 }
