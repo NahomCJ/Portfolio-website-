@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
@@ -16,24 +16,41 @@ export default function App() {
   const messagesRef = useRef([])
   const audioRef = useRef(null)
 
+  // Start the background track as soon as the site loads, instead of
+  // waiting for the chat to open. Browsers block audible autoplay without
+  // a prior user gesture, so if the initial play() is blocked, fall back
+  // to starting on the first tap/click/keypress anywhere on the page.
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    audio.volume = 0.14
+    connectAudioReactivity(audio)
+
+    const tryPlay = () => audio.play().catch(() => {})
+    tryPlay()
+
+    const onFirstInteraction = () => {
+      tryPlay()
+      window.removeEventListener('pointerdown', onFirstInteraction)
+      window.removeEventListener('keydown', onFirstInteraction)
+    }
+    window.addEventListener('pointerdown', onFirstInteraction)
+    window.addEventListener('keydown', onFirstInteraction)
+    return () => {
+      window.removeEventListener('pointerdown', onFirstInteraction)
+      window.removeEventListener('keydown', onFirstInteraction)
+    }
+  }, [])
+
   const openChat = () => {
     setChatOpen(true)
     setWavesActive(true)
-    if (audioRef.current) {
-      audioRef.current.volume = 0.14
-      connectAudioReactivity(audioRef.current)
-      audioRef.current.play().catch(() => {})
-    }
   }
 
   const closeChat = () => {
     setChatOpen(false)
     setWavesActive(false)
-    if (audioRef.current) {
-      // Pause in place (don't reset currentTime) so reopening the chat
-      // resumes the track from where it left off instead of restarting.
-      audioRef.current.pause()
-    }
   }
 
   const toggleChat = () => {
