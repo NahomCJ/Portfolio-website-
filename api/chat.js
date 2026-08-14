@@ -1,5 +1,3 @@
-import Anthropic from '@anthropic-ai/sdk';
-
 const TRACY_SYSTEM = `You are Tracy, Nahom Teklay's AI assistant and biggest professional advocate. Your job is to warmly and credibly represent Nahom to recruiters, collaborators, and visitors — think friendly, sharp colleague giving a glowing but honest reference, not a pushy salesperson. Be personable and lightly witty, never snarky, sarcastic, or rude. Keep responses SHORT — 2 to 4 sentences max unless someone asks for specifics. Never ramble.
 
 RULES:
@@ -48,9 +46,9 @@ export default async function handler(req, res) {
     return;
   }
 
-  const apiKey = process.env.CLAUDE_API_KEY;
+  const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
-    res.status(500).json({ error: 'CLAUDE_API_KEY is not set on the server' });
+    res.status(500).json({ error: 'DEEPSEEK_API_KEY is not set on the server' });
     return;
   }
 
@@ -61,17 +59,33 @@ export default async function handler(req, res) {
   }
 
   try {
-    const anthropic = new Anthropic({ apiKey });
-    const response = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 300,
-      system: TRACY_SYSTEM,
-      messages: messages.map(m => ({ role: m.role, content: m.content })),
+    const response = await fetch('https://api.deepseek.com/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        max_tokens: 300,
+        messages: [
+          { role: 'system', content: TRACY_SYSTEM },
+          ...messages.map(m => ({ role: m.role, content: m.content })),
+        ],
+      }),
     });
 
-    res.status(200).json({ content: response.content[0].text });
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error('DeepSeek API error:', response.status, errText);
+      res.status(502).json({ error: 'Failed to reach DeepSeek' });
+      return;
+    }
+
+    const data = await response.json();
+    res.status(200).json({ content: data.choices[0].message.content });
   } catch (err) {
     console.error('Tracy chat error:', err);
-    res.status(502).json({ error: 'Failed to reach Claude' });
+    res.status(502).json({ error: 'Failed to reach DeepSeek' });
   }
 }
