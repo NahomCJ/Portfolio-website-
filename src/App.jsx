@@ -16,16 +16,19 @@ export default function App() {
   const messagesRef = useRef([])
   const audioRef = useRef(null)
 
-  // Start the background track as soon as the site loads, instead of
-  // waiting for the chat to open. Browsers block audible autoplay without
-  // a prior user gesture, so if the initial play() is blocked, fall back
-  // to starting on the first tap/click/keypress anywhere on the page.
+  // Start the background track and the hero wave "active" animation as
+  // soon as the site loads — the same setWavesActive(true) the FAB fires
+  // on tap — instead of waiting for the chat to open. Browsers block
+  // audible autoplay without a prior user gesture, so if the initial
+  // play() is blocked, fall back to starting on the first tap/click/
+  // keypress anywhere on the page.
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
 
     audio.volume = 0.14
     connectAudioReactivity(audio)
+    setWavesActive(true)
 
     const tryPlay = () => audio.play().catch(() => {})
     tryPlay()
