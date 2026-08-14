@@ -6,7 +6,7 @@ import Resume from './pages/Resume'
 import SplashScreen from './components/SplashScreen'
 import ChrisHomeFab from './components/ChrisHomeFab'
 import TracyGlassChat from './components/TracyGlassChat'
-import { connectAudioReactivity, setWavesActive } from './lib/audioReactivity'
+import { connectAudioReactivity, resumeAudioContext, setWavesActive } from './lib/audioReactivity'
 
 export default function App() {
   const [splashDone, setSplashDone] = useState(false)
@@ -30,7 +30,10 @@ export default function App() {
     connectAudioReactivity(audio)
     setWavesActive(true)
 
-    const tryPlay = () => audio.play().catch(() => {})
+    const tryPlay = () => {
+      resumeAudioContext()
+      audio.play().catch(() => {})
+    }
     tryPlay()
 
     const onFirstInteraction = () => {
@@ -57,6 +60,12 @@ export default function App() {
   }
 
   const toggleChat = () => {
+    // A tap on the FAB is itself a real user gesture — use it to unlock
+    // audio directly too, on top of the page-wide first-interaction
+    // fallback, so whichever one fires first reliably turns the music on.
+    resumeAudioContext()
+    audioRef.current?.play().catch(() => {})
+
     if (chatOpen) {
       closeChat()
     } else {

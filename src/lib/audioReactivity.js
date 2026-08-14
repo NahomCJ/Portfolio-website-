@@ -32,6 +32,7 @@ export function setWavesActive(active) {
 
 let analyser;
 let dataArray;
+let sharedAudioCtx;
 
 let smoothLevel = 0;
 let smoothBass = 0;
@@ -45,6 +46,7 @@ export function connectAudioReactivity(audioEl) {
   try {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     const audioCtx = new AudioContextClass();
+    sharedAudioCtx = audioCtx;
     const source = audioCtx.createMediaElementSource(audioEl);
 
     analyser = audioCtx.createAnalyser();
@@ -60,6 +62,18 @@ export function connectAudioReactivity(audioEl) {
   } catch {
     // Web Audio unavailable/blocked — the wave just keeps its default motion.
   }
+}
+
+// Most browsers create the AudioContext above in "suspended" state when
+// it's set up before any user gesture (which happens here, since we try
+// to connect it as soon as the page loads) — audio.play() can still
+// succeed while suspended, but no sound actually reaches the speakers
+// until the *context* itself is resumed from within a real user gesture.
+// Call this from every click/tap handler that's meant to unlock audio
+// (the page's first-interaction fallback, the chat FAB) so whichever one
+// fires first reliably turns the sound on.
+export function resumeAudioContext() {
+  sharedAudioCtx?.resume?.();
 }
 
 function tick() {
