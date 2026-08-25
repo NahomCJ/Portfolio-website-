@@ -40,7 +40,7 @@ const EXPERIENCE = [
   },
   {
     period: 'Jun – Dec 2025',
-    location: 'Warsaw, Poland',
+    location: 'New York City, USA',
     role: 'CEO & CTO',
     company: 'Marcus',
     companyUrl: 'https://marcus-ai.eu',
