@@ -10,7 +10,7 @@ import './Home.css';
 
 const EXPERIENCE = [
   {
-    period: 'Jul 2026 – Present',
+    period: 'Jun 2026 – Present',
     location: 'San Francisco, CA',
     now: true,
     role: 'Founder & CEO',
