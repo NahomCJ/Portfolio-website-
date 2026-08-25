@@ -10,7 +10,7 @@ import './Home.css';
 
 const EXPERIENCE = [
   {
-    period: 'Jun 2026 – Present',
+    period: 'Jul 2026 – Present',
     location: 'San Francisco, CA',
     now: true,
     role: 'Founder & CEO',
@@ -40,7 +40,7 @@ const EXPERIENCE = [
   },
   {
     period: 'Jun – Dec 2025',
-    location: 'Warsaw, Poland',
+    location: 'New York City, USA',
     role: 'CEO & CTO',
     company: 'Marcus',
     companyUrl: 'https://marcus-ai.eu',
