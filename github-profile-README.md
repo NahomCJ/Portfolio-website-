@@ -10,10 +10,10 @@ I build at the intersection of **AI and global finance**. Currently founding [Ch
 
 | Period | Role | Company |
 |---|---|---|
-| Sep 2025 – Present | Founder & CEO | [Chronos](https://chronos-sf.com) — AI Fintech Super App |
-| Oct 2025 – Present | Founder In Residence | Genoa Founder School *(YC alumni, Sequoia mentors)* |
-| Jun – Dec 2025 | CEO & CTO | Marcus — AI Software Platform |
-| Apr – Jul 2025 | Data Science Intern | OESON *(150K+ patient records, MLOps pipelines, +22% accuracy)* |
+| Oct 2026 – Present | Co-Founder & CEO | [Marcus](https://marcus-ai.co) — Agentic AI platform to build products, brands & content |
+| Oct 2025 – May 2026 | Founder In Residence | Genoa Founder School *(YC alumni, Sequoia mentors)* |
+| Jun 2026 – Present | Founder & CEO | [Chronos](https://chronos-sf.com) — AI Fintech Super App |
+| Jul – Sep 2025 | Data Scientist (Intern) | OESON *(150K+ patient records, MLOps pipelines, +22% accuracy)* |
 | Aug – Oct 2024 | AI Engineer Intern | GAOTek Inc. *(LLM fine-tuning, fraud detection on AWS EC2, +27% anomaly detection)* |
 | Apr – Aug 2024 | Software Engineer Intern | Ozone Technologies *(Telemed Android app)* |
 | Apr 2022 – Mar 2024 | Founding Engineer | Janderebaw *(non-profit, 300K+ people served, $50K+ raised)* |
