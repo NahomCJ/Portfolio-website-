@@ -21,8 +21,8 @@ const EXPERIENCE = [
     bullets: [
       'Agentic AI platform to build products, brands & content — then have the AI run them.',
       'Memory-augmented assistant with long-term context, live web search, image & video generation, and voice.',
-      'FastAPI backend with 15+ endpoints and a three-layer memory system (vector search, rolling fact sheets, session history).',
-      'Built-in coding agent (Sophia) and two VS Code extensions for in-editor AI assistance.',
+      'FastAPI backend with a three-layer memory system, a built-in coding agent (Sophia), and two VS Code extensions.',
+      'Co-founding team from Walmart, Amazon Web Services (AWS), PayPal, Western Alliance Bank, Emergent Labs, Blink.new, and Symbiosis School of Economics.',
     ],
   },
   {
