@@ -54,12 +54,12 @@ RULES:
 --- NAHOM'S FULL BACKGROUND ---
 
 CURRENT ROLES:
-- Founder & CEO at Chronos (Jun 2026–Present, San Francisco): Building an AI Fintech Super App — core banking, AI-Financier, BNPL, Crypto & NFT marketplace with a live operation system. Leading a team of 7 engineers and designers. Personally driving AI/ML model training & fine-tuning, 30% of the Flutter mobile app, and business & marketing strategy.
-- Founder In Residence at Genoa Entrepreneurship School (Oct 2025–Present, Genoa, Italy · Hybrid): Pre-accelerator with mentorship from YC alumni founders, FAANG operators, and investors including Douglas Leone (Sequoia Capital) and leaders from Google, Meta, Stripe, Tesla, Apple, Microsoft, and Rippling. Focus: customer discovery, product validation, go-to-market strategy, fundraising, and pitch preparation.
+- Co-Founder & CEO at Marcus (Oct 2026–Present, New York): Agentic AI platform to build products, brands & content — then have the AI run them. Memory-augmented assistant with long-term context, live web search, image & video generation, and voice. FastAPI backend with a three-layer memory system, a built-in coding agent (Sophia), and two VS Code extensions. Co-founding team from Walmart, Amazon Web Services (AWS), PayPal, Western Alliance Bank, Emergent Labs, Blink.new, and Symbiosis School of Economics. Website: marcus-ai.co.
+- Founder & CEO at Chronos (Jun 2026–Present, San Francisco Bay Area): Building an AI Fintech Super App — core banking, AI-Financier, BNPL, Crypto & NFT marketplace with a live operation system. Leading a team of 7 engineers and designers. Personally driving AI/ML model training & fine-tuning, 30% of the Flutter mobile app, and business & marketing strategy.
 
 PAST EXPERIENCE:
-- CEO & CTO at Marcus (Jun–Dec 2025, Warsaw): Built a full-stack memory-augmented AI assistant with long-term context (ChromaDB + SQLite), real-time web search, image & video generation, voice via Hume EVI, and a built-in coding agent (Sophia). FastAPI backend with 15+ REST/SSE endpoints. Three-layer memory system (ChromaDB vector search, Claude-compressed rolling fact sheets, live session history). Two VS Code extensions (Sophia + Marcus Code). Website: marcus-ai.eu.
-- Data Science Intern at OESON (Apr–Jul 2025, Warsaw): Analyzed 150,000+ anonymized patient records. Built ML classification models with MLOps pipelines on Google Colab — 22% improvement in symptom prediction accuracy. Delivered dashboards in Matplotlib and Seaborn for clinical decision support.
+- Founder In Residence at Genoa Founder School (Oct 2025–May 2026, Genoa, Italy): Pre-accelerator with mentorship from YC alumni founders, FAANG operators, and investors including Douglas Leone (Sequoia Capital) and leaders from Google, Meta, Stripe, Tesla, Apple, Microsoft, and Rippling. Focus: customer discovery, product validation, go-to-market strategy, fundraising, and pitch preparation.
+- Data Scientist (Internship) at OESON (Jul–Sep 2025, Warsaw): Analyzed 150,000+ anonymized patient records. Built ML classification models with MLOps pipelines on Google Colab — 22% improvement in symptom prediction accuracy. Delivered dashboards in Matplotlib and Seaborn for clinical decision support.
 - AI Engineer Intern at GAOTek Inc. (Aug–Oct 2024, Brooklyn NYC): Fine-tuned LLMs, built REID fraud detection and BNPL risk scoring models on AWS EC2 — 27% improvement in anomaly detection accuracy. Contributed to full-stack automation using Git Copilot, increasing lead engagement by 19%.
 - Software Engineer Intern at Ozone Technologies (Apr–Aug 2024, Addis Ababa): Contributed 30% of the Telemed mobile app (healthcare consultation, booking, prescriptions). Integrated RESTful APIs improving loading performance by 40%. Led hospital & pharmacy partnerships — 25% profit margin.
 - Front-End Developer at Kuraz Tech (Feb–Mar 2024, Addis Ababa): Built UIs for an e-learning platform impacting 2,000+ users. Integrated RESTful APIs reducing manual update time by 50%.
@@ -83,7 +83,7 @@ SKILLS:
 
 CERTIFICATES: AWS Cloud Solution Architect (ongoing), Cloud Computing (Coursera), Data Science (OESON), AI Engineering (GAOTek), Digital Marketing (GAOTek), C++ Programming (Virtual CE), Psychology: Discovering Personality (Peterson Academy).
 
-KEY HIGHLIGHTS: 300,000+ people served, 10+ roles & internships, 4 spoken languages, leading a team of 7 at Chronos.
+KEY HIGHLIGHTS: 300,000+ people served, 10+ roles & internships, 4 spoken languages, co-founder of Marcus and founder of Chronos.
 
 CONTACT: nahomteklay17@gmail.com | LinkedIn: linkedin.com/in/nahom-teklay | GitHub: github.com/NahomCJ`,
         messages: newMessages.map(m => ({ role: m.role, content: m.content }))
