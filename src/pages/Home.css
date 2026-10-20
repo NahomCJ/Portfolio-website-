@@ -199,7 +199,7 @@
 
 .about-highlights {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
@@ -539,7 +539,6 @@ footer p { font-size: 13px; color: rgba(255, 255, 255, 0.25); }
 @media (max-width: 960px) {
   .skills-wrap { grid-template-columns: repeat(2, 1fr); gap: 32px 40px; }
   .about-inner { grid-template-columns: 1fr; gap: 48px; }
-  .about-highlights { grid-template-columns: repeat(4, 1fr); }
   .hero-img-wrap { width: 320px; height: 320px; }
 }
 
@@ -550,7 +549,6 @@ footer p { font-size: 13px; color: rgba(255, 255, 255, 0.25); }
   .hero-actions { justify-content: center; }
   .hero-bio, .hero-badge { margin-left: auto; margin-right: auto; }
 
-  .about-highlights { grid-template-columns: repeat(2, 1fr); }
 
   .exp-row { grid-template-columns: 1fr; gap: 6px; }
   .exp-aside { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 6px 12px; }
