@@ -15,15 +15,14 @@ const EXPERIENCE = [
     now: true,
     role: 'Co-Founder & CEO',
     company: 'Marcus',
-    companyUrl: 'https://marcus-ai.eu',
+    companyUrl: 'https://marcus-ai.co',
     type: 'Full-time',
     featured: true,
     bullets: [
-      'Agentic platform to build products, brands & content, and to have the AI run them.',
-      'Built a full-stack memory-augmented AI assistant with long-term context (ChromaDB + SQLite), real-time web search, image & video generation, voice interaction via Hume EVI, and a built-in coding agent (Sophia).',
-      'Architected a FastAPI backend with 15+ REST/SSE endpoints covering chat streaming, semantic memory retrieval, web crawling, media generation, and Stripe billing.',
-      'Engineered a three-layer memory system: ChromaDB vector search, Claude-compressed rolling fact sheets (auto-triggered every 20 messages), and live session history injected into every prompt.',
-      'Shipped two VS Code extensions (Sophia + Marcus Code) for in-editor AI code assistance connected to the Marcus API.',
+      'Agentic AI platform to build products, brands & content — then have the AI run them.',
+      'Memory-augmented assistant with long-term context, live web search, image & video generation, and voice.',
+      'FastAPI backend with 15+ endpoints and a three-layer memory system (vector search, rolling fact sheets, session history).',
+      'Built-in coding agent (Sophia) and two VS Code extensions for in-editor AI assistance.',
     ],
   },
   {
@@ -200,7 +199,6 @@ const HIGHLIGHTS = [
   { num: '300K+', label: 'People Served' },
   { num: '10+',   label: 'Roles & Internships' },
   { num: '4',     label: 'Spoken Languages' },
-  { num: '7',     label: 'Team at Chronos' },
 ];
 
 // ─── SVG Icons ────────────────────────────────────────────────────────────────
