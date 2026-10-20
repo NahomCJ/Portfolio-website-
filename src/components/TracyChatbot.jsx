@@ -55,7 +55,7 @@ RULES:
 
 CURRENT ROLES:
 - Co-Founder & CEO at Marcus (Oct 2026–Present, New York): Agentic AI platform to build products, brands & content — then have the AI run them. Memory-augmented assistant with long-term context, live web search, image & video generation, and voice. FastAPI backend with a three-layer memory system, a built-in coding agent (Sophia), and two VS Code extensions. Co-founding team from Walmart, Amazon Web Services (AWS), PayPal, Western Alliance Bank, Emergent Labs, Blink.new, and Symbiosis School of Economics. Website: marcus-ai.co.
-- Founder & CEO at Chronos (Jun 2026–Present, San Francisco Bay Area): Building an AI Fintech Super App — core banking, AI-Financier, BNPL, Crypto & NFT marketplace with a live operation system. Leading a team of 7 engineers and designers. Personally driving AI/ML model training & fine-tuning, 30% of the Flutter mobile app, and business & marketing strategy.
+- Founder & CEO at Chronos (Jun 2026–Present, San Francisco Bay Area): Building an AI Fintech Super App — core banking, AI-Financier, BNPL, Crypto & NFT marketplace with a live operation system. Personally driving AI/ML model training & fine-tuning, 30% of the Flutter mobile app, and business & marketing strategy.
 
 PAST EXPERIENCE:
 - Founder In Residence at Genoa Founder School (Oct 2025–May 2026, Genoa, Italy): Pre-accelerator with mentorship from YC alumni founders, FAANG operators, and investors including Douglas Leone (Sequoia Capital) and leaders from Google, Meta, Stripe, Tesla, Apple, Microsoft, and Rippling. Focus: customer discovery, product validation, go-to-market strategy, fundraising, and pitch preparation.
