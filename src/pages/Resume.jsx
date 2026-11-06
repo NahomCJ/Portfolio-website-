@@ -22,7 +22,7 @@ export default function Resume() {
               </div>
               <h2>My Resume</h2>
             </div>
-            <a href="/Nahom_Teklay_FlowCV_Resume_2026-05-15.pdf" download className="download-btn">
+            <a href="/Nahom_Teklay_Resume_2026-11.pdf" download className="download-btn">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -32,7 +32,7 @@ export default function Resume() {
             </a>
           </div>
           <div className="resume-pdf-container">
-            <iframe src="/Nahom_Teklay_FlowCV_Resume_2026-05-15.pdf" title="Resume" />
+            <iframe src="/Nahom_Teklay_Resume_2026-11.pdf" title="Resume" />
           </div>
         </div>
       </div>

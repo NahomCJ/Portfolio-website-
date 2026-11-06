@@ -208,7 +208,7 @@ export default function Projects() {
     {
       label: 'Resume',
       icon: <IconDoc />,
-      onClick: () => window.open('/Nahom_Teklay_FlowCV_Resume_2026-05-15.pdf', '_blank'),
+      onClick: () => window.open('/Nahom_Teklay_Resume_2026-11.pdf', '_blank'),
     },
     {
       label: 'Blogs',
