@@ -19,21 +19,81 @@ const EXPERIENCE = [
     type: 'Full-time',
     featured: true,
     bullets: [
-      'Agentic AI platform to build products, brands & content — then have the AI run them.',
-      'Memory-augmented assistant with long-term context, live web search, image & video generation, and voice.',
-      'FastAPI backend with a three-layer memory system, a built-in coding agent (Sophia), and two VS Code extensions.',
+      'Agentic AI that builds a company end to end from one prompt (app, website, branding, marketing, UGC videos, legal registration in any US state) and then runs the business on its own.',
+      'Growing at $6K monthly revenue with 1,300+ users, monetized through Stripe subscriptions and pay-as-you-go company registration.',
+      'Built the AI engine on OpenAI, Claude and DeepSeek, with Runware for image and video generation.',
+      'Engineered a multi-tier memory system (vector embeddings + relational storage) and shipped the 40+ endpoint backend with zero-downtime deployment on Vercel.',
       'Co-founding team from Walmart, Amazon Web Services (AWS), PayPal, Western Alliance Bank, Emergent Labs, Blink.new, and Symbiosis School of Economics.',
     ],
   },
   {
-    period: 'Oct 2025 – May 2026',
-    location: 'Genoa, Liguria, Italy',
-    role: 'Founder In Residence',
-    company: 'Genoa Founder School',
-    type: 'Program',
+    period: 'Nov 2026 – Present',
+    location: 'Cambridge, USA',
+    now: true,
+    role: 'AI Engineer & Research Assistant',
+    company: 'MIT',
+    type: 'Research',
     bullets: [
-      'Structured pre-accelerator with mentorship from YC alumni founders, FAANG operators, and investors including Douglas Leone (Sequoia Capital) and leaders from Google, Meta, Stripe, Tesla, Apple, Microsoft, and Rippling.',
-      'Focus: customer discovery, product validation, go-to-market strategy, fundraising, and pitch preparation.',
+      'Working with Theia Henderson to fine-tune AI models for social.wiki.',
+      'Moving the website and backend onto cloud infrastructure.',
+    ],
+  },
+  {
+    period: 'Nov 2026 – Present',
+    location: 'Cambridge, USA',
+    now: true,
+    role: 'AI Research Assistant',
+    company: 'Harvard University',
+    type: 'Research',
+    bullets: [
+      'Working with Prof. Hima Lakkaraju on medical diagnosis machine learning models.',
+      'AI fine-tuning and model training.',
+    ],
+  },
+  {
+    period: 'Nov 2026 – Present',
+    location: 'London, England',
+    now: true,
+    role: 'AI for Scientific Computing Researcher',
+    company: 'University of Oxford',
+    type: 'Research',
+    bullets: [
+      'Analyzing numerical schemes for partial differential equations with Prof. Jose A. Carrillo using multi-agent AI systems, aiming to build an agentic system.',
+      'Developing a pipeline for the automatic production of curated code for these methods, and built SchemaLabs, a website for comparing numerical schemes, using Marcus AI.',
+    ],
+  },
+  {
+    period: 'Nov 2026 – Present',
+    location: 'London, England',
+    now: true,
+    role: 'AI Research Assistant',
+    company: 'Imperial College London',
+    type: 'Research',
+    bullets: [
+      'Building medical AI/ML infrastructure with Filippo Corponi: porting an existing AI model built for Linux into a desktop Windows application.',
+    ],
+  },
+  {
+    period: 'Nov 2026 – Present',
+    location: 'Philadelphia, USA',
+    now: true,
+    role: 'AI & ML Engineer',
+    company: 'The Wharton School, UPenn',
+    type: 'Research',
+    bullets: [
+      'Extracting the true chain of thought from large language models with Prof. Chaojun Wang, testing a published method on open-weight models like DeepSeek.',
+      "Verifying authenticity with the paper's token-count check.",
+    ],
+  },
+  {
+    period: 'Nov 2026 – Present',
+    location: 'Zurich, Switzerland',
+    now: true,
+    role: 'Research Assistant',
+    company: 'ETH Zurich',
+    type: 'Research',
+    bullets: [
+      'Working with Dr. Elisa Donati on edge computing for neuromorphic bioelectronic medicine, contributing on the software and data side.',
     ],
   },
   {
@@ -50,6 +110,17 @@ const EXPERIENCE = [
       'Personally driving AI/ML model training & fine-tuning, 30% of the Flutter mobile app, and business & marketing strategy.',
       'Leading a team of 7 engineers and designers.',
       'Co-founding team from MIT, Columbia, UCLA, Johns Hopkins University, UCSB, PayPal, Amazon, AWS, Western Alliance Bank, Stanford AI Lab, Walmart, Hackathon Tiers, Andreessen Horowitz (a16z), and Afore Capital.',
+    ],
+  },
+  {
+    period: 'Oct 2025 – May 2026',
+    location: 'Genoa, Liguria, Italy',
+    role: 'Founder In Residence',
+    company: 'Genoa Founder School',
+    type: 'Program',
+    bullets: [
+      'Structured pre-accelerator with mentorship from YC alumni founders, FAANG operators, and investors including Douglas Leone (Sequoia Capital) and leaders from Google, Meta, Stripe, Tesla, Apple, Microsoft, and Rippling.',
+      'Focus: customer discovery, product validation, go-to-market strategy, fundraising, and pitch preparation.',
     ],
   },
   {
@@ -155,11 +226,11 @@ const SKILLS = [
 
 const EDUCATION = [
   {
-    year: '2026 – 2027',
+    year: '2027 (expected)',
     degree: 'BSc in Information Systems and Technology',
     school: 'New York University',
     location: 'New York, United States',
-    note: 'Incoming fall transfer',
+    note: 'Incoming junior transfer',
     logo: '/nyu-logo.png',
   },
   {
@@ -167,7 +238,7 @@ const EDUCATION = [
     degree: 'BSc in Computer Science & Artificial Intelligence',
     school: 'Vistula University',
     location: 'Warsaw, Poland',
-    gpa: 'GPA 3.93 / 4.0',
+    gpa: 'GPA 3.94 / 4.0',
   },
   {
     year: '2021 – 2026',
@@ -197,7 +268,7 @@ const CERTS = [
 
 const HIGHLIGHTS = [
   { num: '300K+', label: 'People Served' },
-  { num: '10+',   label: 'Roles & Internships' },
+  { num: '15+',   label: 'Roles & Research Positions' },
   { num: '4',     label: 'Spoken Languages' },
 ];
 
@@ -364,7 +435,7 @@ export default function Home() {
             </div>
             <div className="hero-text">
               <h1 className="hero-name">Nahom Teklay</h1>
-              <p className="hero-role">2x Founder | Data Scientist | AI Engineer | Oxford | NYU</p>
+              <p className="hero-role">2x Founder | Data Scientist | MIT | Harvard | Oxford | Wharton | Imperial | ETH Zurich | NYU</p>
               <p className="hero-bio">
                 Experienced in <strong>ML pipelines</strong>, mobile development, and cloud deployment,
                 building production systems across healthcare, fintech, and enterprise software.
