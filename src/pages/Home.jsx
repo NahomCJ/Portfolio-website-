@@ -377,7 +377,7 @@ export default function Home() {
             </div>
             <div className="hero-text">
               <h1 className="hero-name">Nahom Teklay</h1>
-              <p className="hero-role">2x Founder | Data Scientist | Wharton | NYU</p>
+              <p className="hero-role">2x Founder | Data Scientist</p>
               <p className="hero-bio">
                 Experienced in <strong>ML pipelines</strong>, mobile development, and cloud deployment,
                 building production systems across healthcare, fintech, and enterprise software.
