@@ -28,53 +28,6 @@ const EXPERIENCE = [
   },
   {
     period: 'Nov 2026 – Present',
-    location: 'Cambridge, USA',
-    now: true,
-    role: 'AI Engineer & Research Assistant',
-    company: 'MIT',
-    type: 'Research',
-    bullets: [
-      'Working with Theia Henderson to fine-tune AI models for social.wiki.',
-      'Moving the website and backend onto cloud infrastructure.',
-    ],
-  },
-  {
-    period: 'Nov 2026 – Present',
-    location: 'Cambridge, USA',
-    now: true,
-    role: 'AI Research Assistant',
-    company: 'Harvard University',
-    type: 'Research',
-    bullets: [
-      'Working with Prof. Hima Lakkaraju on medical diagnosis machine learning models.',
-      'AI fine-tuning and model training.',
-    ],
-  },
-  {
-    period: 'Nov 2026 – Present',
-    location: 'London, England',
-    now: true,
-    role: 'AI for Scientific Computing Researcher',
-    company: 'University of Oxford',
-    type: 'Research',
-    bullets: [
-      'Analyzing numerical schemes for partial differential equations with Prof. Jose A. Carrillo using multi-agent AI systems, aiming to build an agentic system.',
-      'Developing a pipeline for the automatic production of curated code for these methods, and built SchemaLabs, a website for comparing numerical schemes, using Marcus AI.',
-    ],
-  },
-  {
-    period: 'Nov 2026 – Present',
-    location: 'London, England',
-    now: true,
-    role: 'AI Research Assistant',
-    company: 'Imperial College London',
-    type: 'Research',
-    bullets: [
-      'Building medical AI/ML infrastructure with Filippo Corponi: porting an existing AI model built for Linux into a desktop Windows application.',
-    ],
-  },
-  {
-    period: 'Nov 2026 – Present',
     location: 'Philadelphia, USA',
     now: true,
     role: 'AI & ML Engineer',
@@ -83,17 +36,6 @@ const EXPERIENCE = [
     bullets: [
       'Extracting the true chain of thought from large language models with Prof. Chaojun Wang, testing a published method on open-weight models like DeepSeek.',
       "Verifying authenticity with the paper's token-count check.",
-    ],
-  },
-  {
-    period: 'Nov 2026 – Present',
-    location: 'Zurich, Switzerland',
-    now: true,
-    role: 'Research Assistant',
-    company: 'ETH Zurich',
-    type: 'Research',
-    bullets: [
-      'Working with Dr. Elisa Donati on edge computing for neuromorphic bioelectronic medicine, contributing on the software and data side.',
     ],
   },
   {
@@ -435,7 +377,7 @@ export default function Home() {
             </div>
             <div className="hero-text">
               <h1 className="hero-name">Nahom Teklay</h1>
-              <p className="hero-role">2x Founder | Data Scientist | MIT | Harvard | Oxford | Wharton | Imperial | ETH Zurich | NYU</p>
+              <p className="hero-role">2x Founder | Data Scientist</p>
               <p className="hero-bio">
                 Experienced in <strong>ML pipelines</strong>, mobile development, and cloud deployment,
                 building production systems across healthcare, fintech, and enterprise software.
